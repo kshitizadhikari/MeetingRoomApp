@@ -13,6 +13,7 @@ namespace RoomApp.DataAccess.DAL
     {
         public static async Task SeedRolesAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+            await roleManager.CreateAsync(new IdentityRole(Role.SuperAdmin.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Role.Admin.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Role.Basic.ToString()));
         }
@@ -23,8 +24,8 @@ namespace RoomApp.DataAccess.DAL
             {
                 FirstName = "Arc",
                 LastName = "Warden",
-                UserName = "arc@gmail.com",
-                Email = "arc@gmail.com",
+                UserName = "admin@gmail.com",
+                Email = "admin@gmail.com",
                 EmailConfirmed = false,
                 PhoneNumberConfirmed = false
             };
@@ -34,8 +35,31 @@ namespace RoomApp.DataAccess.DAL
                 var user = await userManager.FindByEmailAsync(defaultUser.Email);
                 if (user == null)
                 {
-                    await userManager.CreateAsync(defaultUser, "Arc@1234");
+                    await userManager.CreateAsync(defaultUser, "Password@123");
                     await userManager.AddToRoleAsync(defaultUser, Role.Admin.ToString());
+                }
+            }
+        }
+
+        public static async Task SeedDefaultSuperAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            var defaultUser = new ApplicationUser
+            {
+                FirstName = "Super",
+                LastName = "Admin",
+                UserName = "superadmin@gmail.com",
+                Email = "superadmin@gmail.com",
+                EmailConfirmed = false,
+                PhoneNumberConfirmed = false
+            };
+
+            if (userManager.Users.All(u => u.Id != defaultUser.Id))
+            {
+                var user = await userManager.FindByEmailAsync(defaultUser.Email);
+                if (user == null)
+                {
+                    await userManager.CreateAsync(defaultUser, "Password@123");
+                    await userManager.AddToRoleAsync(defaultUser, Role.SuperAdmin.ToString());
                 }
             }
         }

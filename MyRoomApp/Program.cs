@@ -41,6 +41,7 @@ using (var scope = app.Services.CreateScope())
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
         await ContextSeed.SeedRolesAsync(userManager, roleManager);
         await ContextSeed.SeedDefaultAdminAsync(userManager, roleManager);
+        await ContextSeed.SeedDefaultSuperAdminAsync(userManager, roleManager);
     }
     catch (Exception ex)
     {
