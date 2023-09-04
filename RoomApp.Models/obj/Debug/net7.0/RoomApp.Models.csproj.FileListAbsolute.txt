@@ -10,3 +10,15 @@ D:\asp.net\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.dll
 D:\asp.net\RoomApp.Models\obj\Debug\net7.0\refint\RoomApp.Models.dll
 D:\asp.net\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.pdb
 D:\asp.net\RoomApp.Models\obj\Debug\net7.0\ref\RoomApp.Models.dll
+D:\asp.net\MeetingRoomApp\RoomApp.Models\bin\Debug\net7.0\RoomApp.Models.deps.json
+D:\asp.net\MeetingRoomApp\RoomApp.Models\bin\Debug\net7.0\RoomApp.Models.dll
+D:\asp.net\MeetingRoomApp\RoomApp.Models\bin\Debug\net7.0\RoomApp.Models.pdb
+D:\asp.net\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.csproj.AssemblyReference.cache
+D:\asp.net\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\asp.net\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.AssemblyInfoInputs.cache
+D:\asp.net\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.AssemblyInfo.cs
+D:\asp.net\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.csproj.CoreCompileInputs.cache
+D:\asp.net\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.dll
+D:\asp.net\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\refint\RoomApp.Models.dll
+D:\asp.net\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.pdb
+D:\asp.net\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\ref\RoomApp.Models.dll

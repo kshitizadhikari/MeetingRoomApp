@@ -1228,6 +1228,16 @@
         "runtime": {
           "bin/placeholder/RoomApp.Models.dll": {}
         }
+      },
+      "RoomApp.Utility/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/RoomApp.Utility.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RoomApp.Utility.dll": {}
+        }
       }
     }
   },
@@ -3644,6 +3654,11 @@
       "type": "project",
       "path": "../RoomApp.Models/RoomApp.Models.csproj",
       "msbuildProject": "../RoomApp.Models/RoomApp.Models.csproj"
+    },
+    "RoomApp.Utility/1.0.0": {
+      "type": "project",
+      "path": "../RoomApp.Utility/RoomApp.Utility.csproj",
+      "msbuildProject": "../RoomApp.Utility/RoomApp.Utility.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3651,7 +3666,8 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.10",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.10",
-      "RoomApp.Models >= 1.0.0"
+      "RoomApp.Models >= 1.0.0",
+      "RoomApp.Utility >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3661,11 +3677,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\asp.net\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj",
+      "projectUniqueName": "D:\\asp.net\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj",
       "projectName": "RoomApp.DataAccess",
-      "projectPath": "D:\\asp.net\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj",
+      "projectPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj",
       "packagesPath": "C:\\Users\\kshitiz\\.nuget\\packages\\",
-      "outputPath": "D:\\asp.net\\RoomApp.DataAccess\\obj\\",
+      "outputPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3686,8 +3702,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\asp.net\\RoomApp.Models\\RoomApp.Models.csproj": {
-              "projectPath": "D:\\asp.net\\RoomApp.Models\\RoomApp.Models.csproj"
+            "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {
+              "projectPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj"
+            },
+            "D:\\asp.net\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj": {
+              "projectPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj"
             }
           }
         }

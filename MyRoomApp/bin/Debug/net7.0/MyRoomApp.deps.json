@@ -15,7 +15,8 @@
           "Microsoft.EntityFrameworkCore.Tools": "7.0.10",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.9",
           "RoomApp.DataAccess": "1.0.0",
-          "RoomApp.Models": "1.0.0"
+          "RoomApp.Models": "1.0.0",
+          "RoomApp.Utility": "1.0.0"
         },
         "runtime": {
           "MyRoomApp.dll": {}
@@ -2589,7 +2590,8 @@
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.10",
-          "RoomApp.Models": "1.0.0"
+          "RoomApp.Models": "1.0.0",
+          "RoomApp.Utility": "1.0.0"
         },
         "runtime": {
           "RoomApp.DataAccess.dll": {}
@@ -2602,6 +2604,11 @@
         },
         "runtime": {
           "RoomApp.Models.dll": {}
+        }
+      },
+      "RoomApp.Utility/1.0.0": {
+        "runtime": {
+          "RoomApp.Utility.dll": {}
         }
       }
     }
@@ -4235,6 +4242,11 @@
       "sha512": ""
     },
     "RoomApp.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RoomApp.Utility/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RoomApp.Models\RoomApp.Models.csproj" />
+    <ProjectReference Include="..\RoomApp.Utility\RoomApp.Utility.csproj" />
   </ItemGroup>
 
 </Project>

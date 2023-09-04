@@ -1,0 +1,12 @@
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\bin\Debug\net7.0\RoomApp.Utility.deps.json
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\bin\Debug\net7.0\RoomApp.Utility.dll
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\bin\Debug\net7.0\RoomApp.Utility.pdb
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\RoomApp.Utility.csproj.AssemblyReference.cache
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\RoomApp.Utility.GeneratedMSBuildEditorConfig.editorconfig
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\RoomApp.Utility.AssemblyInfoInputs.cache
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\RoomApp.Utility.AssemblyInfo.cs
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\RoomApp.Utility.csproj.CoreCompileInputs.cache
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\RoomApp.Utility.dll
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\refint\RoomApp.Utility.dll
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\RoomApp.Utility.pdb
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\ref\RoomApp.Utility.dll
