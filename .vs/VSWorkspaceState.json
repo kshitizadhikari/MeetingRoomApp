@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\MyRoomApp"
+    "\\MyRoomApp",
+    "\\RoomApp.DataAccess",
+    "\\RoomApp.DataAccess\\DAL"
   ],
-  "SelectedNode": "\\MyRoomApp\\Program.cs",
+  "SelectedNode": "\\RoomApp.DataAccess\\DAL\\ContextSeed.cs",
   "PreviewInSolutionExplorer": false
 }
