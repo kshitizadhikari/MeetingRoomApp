@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyRoomApp.Models;
+using RoomApp.Models;
 using System.Diagnostics;
 
-namespace MyRoomApp.Areas.BasicUser.Controllers
+namespace MyRoomApp.Controllers
 {
-    [Area("BasicUser")]
-    [Authorize(Roles = "BasicUser")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -1,4 +1,4 @@
-namespace MyRoomApp.Models
+namespace RoomApp.Models
 {
     public class ErrorViewModel
     {
