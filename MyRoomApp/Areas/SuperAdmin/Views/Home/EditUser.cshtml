@@ -1,0 +1,42 @@
+﻿@using RoomApp.Utility.ViewModels;
+@model UserRoleVM
+
+@{
+    ViewData["Title"] = "User Edit Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit User Role</h1>
+</div>
+
+<div>
+    <div asp-validation-summary="All"></div>
+    <form asp-area="superadmin" asp-controller="Home" asp-action="EditUserRole" method="post">
+        @Html.AntiForgeryToken()
+        <input asp-for="UserId" value="@Model.UserId" type="hidden" />
+        <div class="mb-3">
+            <label asp-for="UserName"></label>
+            <input asp-for="UserName" value="@Model.UserName" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" value="@Model.Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Role"></label>
+            <select asp-for="@Model.Role" asp-items="@(new SelectList(ViewBag.Roles,"Name", "Name"))">
+                <option value="">Select a Role</option>
+            </select>
+            <span asp-validation-for="@Model.Role" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <button type="submit">Update</button>
+        </div>
+    </form>
+</div>
+
+
+
+
