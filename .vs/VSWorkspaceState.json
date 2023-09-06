@@ -9,6 +9,6 @@
     "\\RoomApp.DataAccess",
     "\\RoomApp.DataAccess\\DAL"
   ],
-  "SelectedNode": "\\MyRoomApp\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
+  "SelectedNode": "\\MyRoomApp\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

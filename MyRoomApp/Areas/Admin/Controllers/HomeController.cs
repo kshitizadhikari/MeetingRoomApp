@@ -81,5 +81,26 @@ namespace MyRoomApp.Areas.Admin.Controllers
             TempData["success"] = "Room details updated successfully.";
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> DeleteRoom(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                TempData["error"] = "Invalid Room Id";
+                return RedirectToAction("Index");
+            }
+
+            Room? roomObj = await _db.Rooms.FindAsync(id);
+            if (roomObj == null)
+            {
+                TempData["error"] = "No such room exists in the database.";
+                return RedirectToAction("Index");
+            }
+
+            _db.Rooms.Remove(roomObj);
+            await _db.SaveChangesAsync();
+            TempData["success"] = "Room deleted successfully.";
+            return RedirectToAction("Index");
+        }
     }
 }
