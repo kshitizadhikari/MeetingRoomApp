@@ -23,5 +23,24 @@ namespace MyRoomApp.Areas.Admin.Controllers
             IEnumerable<Room> allRooms = await _db.Rooms.ToListAsync();
             return View(allRooms);
         }
+
+        public IActionResult CreateRoom()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateRoom(Room obj)
+        {
+            if(!ModelState.IsValid)
+            {
+                TempData["error"] = "Model state invalid";
+            }
+
+            _db.Rooms.Add(obj);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
     }
 }

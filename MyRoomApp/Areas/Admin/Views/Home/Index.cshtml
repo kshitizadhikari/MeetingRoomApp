@@ -7,6 +7,10 @@
     <h1>Admin Index Page</h1>
 </div>
 
+<div>
+    <button>
+        <a asp-area="Admin" asp-controller="Home" asp-action="CreateRoom">Create Room</a>
+    </button>
 </div>
 <div>
     <table class="table table-dark table-striped table-hover">
@@ -27,10 +31,6 @@
                     <td>@room.Name</td>
                     <td>@room.Size</td>
                     <td>@room.Status</td>
-                    <td>
-                        <a asp-area="Admin" asp-controller="Home" asp-action="EditRoom" asp-route-id="@room.Id">Edit</a> |
-                        <a asp-area="Admin" asp-controller="Home" asp-action="DeleteRoom" asp-route-id="@room.Id">Remove</a>
-                    </td>
                 </tr>
             }
         </tbody>
