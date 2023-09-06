@@ -28,7 +28,7 @@ namespace RoomApp.Models
 
         [Required]
         [ForeignKey("ApplicationUser")]
-        public double BookerId { get; set; } //user id who booked the room
+        public double UserId { get; set; } //user id who booked the room
         public ApplicationUser? User { get; set; }
 
     }

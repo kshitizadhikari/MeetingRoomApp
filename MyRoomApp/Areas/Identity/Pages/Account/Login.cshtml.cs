@@ -119,8 +119,13 @@ namespace MyRoomApp.Areas.Identity.Pages.Account
                 {
                     var user = await _userManager.FindByEmailAsync(Input.Email);
                     _logger.LogInformation("User logged in.");
-                    if(await _userManager.IsInRoleAsync(user, "superadmin")){
+                    if(await _userManager.IsInRoleAsync(user, "superadmin"))
+                    {
                         return RedirectToAction("Index", "Home", new {area = "SuperAdmin"});
+                    }
+                    if(await _userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
                     return LocalRedirect(returnUrl);
                 }

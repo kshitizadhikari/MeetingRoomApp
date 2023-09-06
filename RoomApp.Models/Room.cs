@@ -19,6 +19,6 @@ namespace RoomApp.Models
         public int Size { get; set; }
 
         [Required]
-        public bool status { get; set; } //occupied or free to use
+        public string? Status { get; set; } //occupied or free to use
     }
 }

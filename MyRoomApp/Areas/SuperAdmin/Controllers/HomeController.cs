@@ -106,7 +106,7 @@ namespace MyRoomApp.Areas.SuperAdmin.Controllers
                 }
             }
 
-            string newRole = obj.Role.ToString();
+            string newRole = obj?.Role?.ToString() ?? "BasicUser";
             var addToRoleResult = await _userManager.AddToRoleAsync(user, newRole);
             if (!addToRoleResult.Succeeded)
             {
