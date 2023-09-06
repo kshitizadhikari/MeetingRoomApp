@@ -1,0 +1,47 @@
+﻿@model Room
+@{
+    ViewData["Title"] = "Admin Edit Room";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1>Edit Room View</h1>
+</div>
+
+<div>
+
+    <form asp-area="Admin" asp-controller="Home" asp-action="EditRoom" method="post">
+        <input asp-for="@Model.Id" value="@Model.Id" type="hidden" />
+        <div class="mb-3">
+            <label asp-for="@Model.Name"></label>
+            <input asp-for="@Model.Name" />
+            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Size"></label>
+            <input asp-for="@Model.Size" />
+            <span asp-validation-for="@Model.Size" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Status"></label>
+            <select asp-for="@Model.Status">
+                <option value="Available">Available</option>
+                <option value="Full">Full</option>
+            </select>
+            <span asp-validation-for="@Model.Status" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <button type="submit">Update Room</button>
+        </div>
+        <div class="mb-3">
+            <button type="submit" asp-area="Admin" asp-controller="Home" asp-action="DeleteRoom" asp-route-id="@Model.Id">Remove Room</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
+
+

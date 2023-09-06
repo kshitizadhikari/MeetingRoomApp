@@ -40,6 +40,45 @@ namespace MyRoomApp.Areas.Admin.Controllers
 
             _db.Rooms.Add(obj);
             await _db.SaveChangesAsync();
+            TempData["success"] = "Room created successfully.";
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> EditRoom(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                TempData["error"] = "Invalid Room Id";
+                return RedirectToAction("Index");
+            }
+
+            Room? roomObj = await _db.Rooms.FindAsync(id);
+            if(roomObj == null)
+            {
+                TempData["error"] = "No such room exists in the database.";
+                return RedirectToAction("Index");
+            }
+            return View(roomObj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditRoom(Room obj)
+        {
+            Room? roomObj = await _db.Rooms.FindAsync(obj.Id);
+            if(roomObj == null)
+            {
+                TempData["error"] = "No such room exists in the database.";
+                return RedirectToAction("Index");
+            }
+
+            roomObj.Id = obj.Id;
+            roomObj.Name = obj.Name;
+            roomObj.Size = obj.Size;
+            roomObj.Status = obj.Status;
+            _db.Update(roomObj);
+            await _db.SaveChangesAsync();
+            TempData["success"] = "Room details updated successfully.";
             return RedirectToAction("Index");
         }
     }
