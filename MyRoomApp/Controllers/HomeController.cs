@@ -1,21 +1,48 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RoomApp.DataAccess.DAL;
 using RoomApp.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
-namespace MyRoomApp.Controllers
+namespace AuthSystem.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly AppDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+
+
+        public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager, AppDbContext db, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
+            this._signInManager = signInManager;
+            this._db = db;
+            this._userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var currentUser = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            string currentUserId = currentUser?.ToString() ?? "DefaultUserId";
+            ApplicationUser? user = await _db.Users.FindAsync(currentUserId);
+            if (await _userManager.IsInRoleAsync(user, "superadmin"))
+            {
+                return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
+            }
+            if (await _userManager.IsInRoleAsync(user, "admin"))
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+            if (await _userManager.IsInRoleAsync(user, "basic"))
+            {
+                return RedirectToAction("Index", "Home", new { area = "BasicUser" });
+            }
             return View();
         }
 
@@ -31,3 +58,5 @@ namespace MyRoomApp.Controllers
         }
     }
 }
+
+

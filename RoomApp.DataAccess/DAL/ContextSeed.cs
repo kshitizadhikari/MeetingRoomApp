@@ -15,7 +15,7 @@ namespace RoomApp.DataAccess.DAL
         {
             await roleManager.CreateAsync(new IdentityRole(Role.SuperAdmin.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Role.Admin.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Role.Basic.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(Role.BasicUser.ToString()));
         }
 
         public static async Task SeedDefaultAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)

@@ -4,6 +4,6 @@
     {
         SuperAdmin,
         Admin,
-        Basic
+        BasicUser
     }
 }

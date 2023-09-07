@@ -115,6 +115,26 @@ namespace MyRoomApp.Areas.SuperAdmin.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> DeleteUser(string? id)
+        {
+            if (id == null)
+            {
+                TempData["error"] = "Invalid Id";
+                return RedirectToAction("Index");
+            }
+
+            var user = await _db.Users.FindAsync(id);
+            if (user == null)
+            {
+                TempData["error"] = "User doesn't exist.";
+                return RedirectToAction("Index");
+            }
+
+            _db.Users.Remove(user);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
     }
 
 }

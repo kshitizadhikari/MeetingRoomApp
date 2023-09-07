@@ -127,6 +127,10 @@ namespace MyRoomApp.Areas.Identity.Pages.Account
                     {
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
+                    if (await _userManager.IsInRoleAsync(user, "BasicUser"))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "BasicUser" });
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

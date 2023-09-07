@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {}
+    "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {}
   },
   "projects": {
-    "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {
+    "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj",
+        "projectUniqueName": "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj",
         "projectName": "RoomApp.Models",
-        "projectPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj",
+        "projectPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj",
         "packagesPath": "C:\\Users\\kshitiz\\.nuget\\packages\\",
-        "outputPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\obj\\",
+        "outputPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -11753,11 +11753,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\asp.net\\MeetingRoomApp\\MyRoomApp\\MyRoomApp.csproj",
+      "projectUniqueName": "D:\\asp.net\\MRA\\MeetingRoomApp\\MyRoomApp\\MyRoomApp.csproj",
       "projectName": "MyRoomApp",
-      "projectPath": "D:\\asp.net\\MeetingRoomApp\\MyRoomApp\\MyRoomApp.csproj",
+      "projectPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\MyRoomApp\\MyRoomApp.csproj",
       "packagesPath": "C:\\Users\\kshitiz\\.nuget\\packages\\",
-      "outputPath": "D:\\asp.net\\MeetingRoomApp\\MyRoomApp\\obj\\",
+      "outputPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\MyRoomApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -11779,14 +11779,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\asp.net\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj": {
-              "projectPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj"
+            "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj": {
+              "projectPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj"
             },
-            "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {
-              "projectPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj"
+            "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {
+              "projectPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj"
             },
-            "D:\\asp.net\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj": {
-              "projectPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj"
+            "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj": {
+              "projectPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj"
             }
           }
         }
