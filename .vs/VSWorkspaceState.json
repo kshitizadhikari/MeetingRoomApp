@@ -3,12 +3,14 @@
     "",
     "\\MyRoomApp",
     "\\MyRoomApp\\Areas",
-    "\\MyRoomApp\\Areas\\Identity",
+    "\\MyRoomApp\\Areas\\Admin",
+    "\\MyRoomApp\\Areas\\Admin\\Views",
+    "\\MyRoomApp\\Areas\\Admin\\Views\\Home",
     "\\MyRoomApp\\Areas\\Identity\\Pages",
     "\\MyRoomApp\\Areas\\Identity\\Pages\\Account",
     "\\RoomApp.DataAccess",
     "\\RoomApp.DataAccess\\DAL"
   ],
-  "SelectedNode": "\\MyRoomApp\\Program.cs",
+  "SelectedNode": "\\MyRoomApp\\Areas\\Admin\\Views\\Home\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
