@@ -36,6 +36,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQmFzaWNVc2VyXFZpZXdzXEhvbWVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/asp.net/MRA/MeetingRoomApp/MyRoomApp/Areas/BasicUser/Views/Home/ViewRooms.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQmFzaWNVc2VyXFZpZXdzXEhvbWVcVmlld1Jvb21zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/asp.net/MRA/MeetingRoomApp/MyRoomApp/Areas/BasicUser/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQmFzaWNVc2VyXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/asp.net/MRA/MeetingRoomApp/MyRoomApp/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
