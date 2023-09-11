@@ -1,4 +1,4 @@
-﻿namespace RoomApp.Utility.Enum
+﻿namespace RoomApp.Models.Enum
 {
     public enum Role
     {

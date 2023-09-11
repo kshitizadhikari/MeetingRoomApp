@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoomApp.DataAccess.DAL;
 using RoomApp.Models;
+using RoomApp.Models.Enum;
 using RoomApp.Utility.ViewModels;
 using System.Security.Claims;
 
@@ -25,7 +26,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             var currentUser = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             string UserId = currentUser?.ToString() ?? "DefaultUserId";
             ViewBag.UserId = UserId;
-            List<RoomBookingVM> vmList = new List<RoomBookingVM>();
+            List<RoomBookingParticipantVM> vmList = new List<RoomBookingParticipantVM>();
             List<Booking> allBookings = _db.Bookings.ToList();
             foreach (Booking booking in allBookings)
             {
@@ -33,7 +34,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 var bookUser = await _db.Users.FindAsync(booking.UserId);
                 string? bookUserId = bookUser.Id;
 
-                vmList.Add(new RoomBookingVM
+                vmList.Add(new RoomBookingParticipantVM
                 {
                     UserId = bookUserId,
                     Room = room,
@@ -67,7 +68,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                     return RedirectToAction("Index");
                 }
 
-                RoomBookingVM roomBookObj = new RoomBookingVM
+                RoomBookingParticipantVM roomBookObj = new RoomBookingParticipantVM
                 {
                     Room = roomObj,
                     BookingId = 0,
@@ -80,7 +81,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BookRoom(RoomBookingVM? roomBook)
+        public async Task<IActionResult> BookRoom(RoomBookingParticipantVM? roomBook)
         {
             if (roomBook == null)
             {
@@ -136,30 +137,39 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             Booking? bookObj = await _db.Bookings.FindAsync(id);
             if (bookObj == null)
             {
-                TempData["error"] = "Booking Not Found.";
+                TempData["error"] = "No such booking object found in the database.";
                 return RedirectToAction("Index");
             }
             Room? roomObj = await _db.Rooms.FindAsync(bookObj.RoomId);
             if (roomObj == null)
             {
-                TempData["error"] = "Room Not Found.";
+                TempData["error"] = "No such Room object found in the database.";
                 return RedirectToAction("Index");
             }
-
-            RoomBookingVM roomBookObj = new RoomBookingVM
+            List<Participant>? allParticipants = await _db.Participants.ToListAsync();
+            List<Participant> bookingParticipantList = new List<Participant>();
+            foreach (var item in allParticipants)
+            {
+                if (item.BookingId == bookObj.Id)
+                {
+                    bookingParticipantList.Add(item);
+                }
+            }
+            RoomBookingParticipantVM roomBookObj = new RoomBookingParticipantVM
             {
                 Room = roomObj,
                 BookingId = bookObj.Id,
                 BookingName = bookObj.Name,
                 StartTime = bookObj.StartTime,
                 EndTime = bookObj.EndTime,
+                Participants = bookingParticipantList
             };
             return View(roomBookObj);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditBooking(RoomBookingVM roomBook)
+        public async Task<IActionResult> EditBooking(RoomBookingParticipantVM roomBook)
         {
             if (roomBook == null)
             {
@@ -218,7 +228,55 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> AddParticipantView(RoomBookingParticipantVM roomBookObj)
+        {
+            if (roomBookObj == null)
+            {
+                TempData["error"] = "Invalid Object.";
+                return RedirectToAction("Index");
+            }
 
+            ViewBag.Participant = await _db.Users.ToListAsync();
 
+            BookingParticipantsVM obj = new BookingParticipantsVM
+            {
+                BookingId = roomBookObj.BookingId,
+                UserId = "",
+                ParticipantStatus = ParticipantStatus.Pending
+            };
+            return View("AddParticipant", obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddParticipant(BookingParticipantsVM obj)
+        {
+            if (obj == null)
+            {
+                TempData["error"] = "Object null";
+                return RedirectToAction("Index");
+            }
+
+            var user = await _db.Users.FindAsync(obj.UserId);
+            if (user == null)
+            {
+                TempData["error"] = "User Not Found.";
+                return RedirectToAction("Index");
+            }
+
+            Participant participant = new Participant
+            {
+                BookingId = obj.BookingId,
+                UserId = obj.UserId,
+                FirstName = user?.FirstName,
+                LastName = user?.LastName,
+                Status = obj.ParticipantStatus
+            };
+
+            _db.Participants.Add(participant);
+            await _db.SaveChangesAsync();
+            TempData["success"] = "Participant Added Successfully.";
+            return RedirectToAction("EditBooking", new { id = obj.BookingId });
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using RoomApp.Utility.ViewModels;
-@model RoomBookingVM
+@model RoomBookingParticipantVM
 
 @{
     ViewData["Title"] = "Edit Room Booking";
@@ -47,6 +47,19 @@
             <label asp-for="@Model.EndTime"></label>
             <input type="datetime-local" asp-for="@Model.EndTime" />
             <span asp-validation-for="@Model.EndTime" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label>Participants: </label>
+            @foreach (var @item in @Model.Participants)
+            {
+                <ul>
+                    <li>@item.FirstName @item.LastName - @item.Status <button asp-area="BasicUser" asp-controller="Home" asp-action="RemoveParticipant" asp-route-id="@item.Id">Remove</button></li>
+                </ul>
+            }
+            <span asp-validation-for="@Model.EndTime" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <button type="submit" asp-area="BasicUser" asp-controller="Home" asp-action="AddParticipantView">Add Participant</button>
         </div>
         <div class="mb-3">
             <button type="submit">Update Booking</button>

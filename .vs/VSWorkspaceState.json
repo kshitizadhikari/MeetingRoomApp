@@ -6,11 +6,11 @@
     "\\MyRoomApp\\Areas\\Admin",
     "\\MyRoomApp\\Areas\\Admin\\Views",
     "\\MyRoomApp\\Areas\\Admin\\Views\\Home",
-    "\\MyRoomApp\\Areas\\Identity\\Pages",
-    "\\MyRoomApp\\Areas\\Identity\\Pages\\Account",
+    "\\MyRoomApp\\Areas\\BasicUser",
+    "\\MyRoomApp\\Areas\\BasicUser\\Controllers",
     "\\RoomApp.DataAccess",
     "\\RoomApp.DataAccess\\DAL"
   ],
-  "SelectedNode": "\\MyRoomApp\\Areas\\Admin\\Views\\Home\\Index.cshtml",
+  "SelectedNode": "\\MyRoomApp\\Areas\\BasicUser\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }

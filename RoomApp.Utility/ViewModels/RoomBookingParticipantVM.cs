@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RoomApp.Utility.ViewModels
 {
-    public class RoomBookingVM
+    public class RoomBookingParticipantVM
     {
 
         public string? UserId { get; set; }
@@ -20,5 +20,9 @@ namespace RoomApp.Utility.ViewModels
 
         [Required]
         public DateTime? EndTime { get; set; }
+
+        public List<Participant>? Participants { get; set; }
+
+        public string? UserStatus { get; set; }
     }
 }
