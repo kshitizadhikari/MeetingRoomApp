@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RoomApp.Models;
-using RoomApp.Utility.Enum;
+using RoomApp.Models.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/DotNet/MeetingRoomApp/MyRoomApp/Areas/BasicUser/Views/Home/AddParticipant.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQmFzaWNVc2VyXFZpZXdzXEhvbWVcQWRkUGFydGljaXBhbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/DotNet/MeetingRoomApp/MyRoomApp/Areas/BasicUser/Views/Home/BookRoom.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQmFzaWNVc2VyXFZpZXdzXEhvbWVcQm9va1Jvb20uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

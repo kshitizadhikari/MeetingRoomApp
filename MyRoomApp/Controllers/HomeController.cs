@@ -30,7 +30,7 @@ namespace AuthSystem.Controllers
         {
             var currentUser = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             string currentUserId = currentUser?.ToString() ?? "DefaultUserId";
-            ApplicationUser? user = await _db.Users.FindAsync(currentUserId);
+            var user = await _db.Users.FindAsync(currentUserId);
             if (await _userManager.IsInRoleAsync(user, "superadmin"))
             {
                 return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
