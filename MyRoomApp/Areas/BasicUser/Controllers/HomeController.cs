@@ -197,6 +197,28 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> DeleteBooking(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                TempData["error"] = "Invalid Id.";
+                return RedirectToAction("Index");
+            }
+
+            Booking? bookObj = await _db.Bookings.FindAsync(id);
+            if (bookObj == null)
+            {
+                TempData["error"] = "Booking Not Found.";
+                return RedirectToAction("Index");
+            }
+
+            _db.Bookings.Remove(bookObj);
+            await _db.SaveChangesAsync();
+            TempData["success"] = "Booking Removed Successfully.";
+            return RedirectToAction("Index");
+        }
+
+
 
     }
 }
