@@ -76,53 +76,87 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                     EndTime = null
                 };
                 return View(roomBookObj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BookRoom(RoomBookingVM? roomBook)
+        {
+            if (roomBook == null)
+            {
+                TempData["error"] = "Room Booking Unsuccessful.";
             }
 
-            [HttpPost]
-            [ValidateAntiForgeryToken]
-            public async Task<IActionResult> BookRoom(RoomBookingVM? roomBook)
+            var currentUserId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            string currentUserIdString = currentUserId?.ToString() ?? "DefaultUserId";
+            ApplicationUser? userObj = await _db.Users.FindAsync(currentUserIdString);
+
+            List<Booking> allBookings = _db.Bookings.ToList();
+            foreach (var booking in allBookings)
             {
-                if (roomBook == null)
+                if (booking.UserId == currentUserIdString)
                 {
-                    TempData["error"] = "Room Booking Unsuccessful.";
-                }
-
-                var currentUserId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-                string currentUserIdString = currentUserId?.ToString() ?? "DefaultUserId";
-                ApplicationUser? userObj = await _db.Users.FindAsync(currentUserIdString);
-
-                List<Booking> allBookings = _db.Bookings.ToList();
-                foreach (var booking in allBookings)
-                {
-                    if (booking.UserId == currentUserIdString)
+                    if (roomBook.StartTime >= booking.StartTime && roomBook.StartTime < booking.EndTime)
                     {
-                        if (roomBook.StartTime >= booking.StartTime && roomBook.StartTime < booking.EndTime)
-                        {
-                            TempData["error"] = "Starting Time Conflict. Choose a different starting time.";
-                            return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
-                        }
-                        else if (roomBook.EndTime > booking.StartTime && roomBook.EndTime <= booking.EndTime)
-                        {
-                            TempData["error"] = "End Time Conflict. Choose a different ending time.";
-                            return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
-                        }
+                        TempData["error"] = "Starting Time Conflict. Choose a different starting time.";
+                        return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
+                    }
+                    else if (roomBook.EndTime > booking.StartTime && roomBook.EndTime <= booking.EndTime)
+                    {
+                        TempData["error"] = "End Time Conflict. Choose a different ending time.";
+                        return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
                     }
                 }
+            }
 
-                Booking? bookingObj = new Booking
-                {
-                    Name = roomBook.BookingName,
-                    RoomId = roomBook.Room?.Id ?? 0,
-                    StartTime = roomBook.StartTime,
-                    EndTime = roomBook.EndTime,
-                    UserId = currentUserIdString,
-                    User = userObj
-                };
+            Booking? bookingObj = new Booking
+            {
+                Name = roomBook.BookingName,
+                RoomId = roomBook.Room?.Id ?? 0,
+                StartTime = roomBook.StartTime,
+                EndTime = roomBook.EndTime,
+                UserId = currentUserIdString,
+                User = userObj
+            };
 
-                _db.Bookings.Add(bookingObj);
-                await _db.SaveChangesAsync();
-                TempData["success"] = "Room Booked Successfully";
+            _db.Bookings.Add(bookingObj);
+            await _db.SaveChangesAsync();
+            TempData["success"] = "Room Booked Successfully";
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> EditBooking(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                TempData["error"] = "Invalid Id.";
                 return RedirectToAction("Index");
             }
+
+            Booking? bookObj = await _db.Bookings.FindAsync(id);
+            if (bookObj == null)
+            {
+                TempData["error"] = "Booking Not Found.";
+                return RedirectToAction("Index");
+            }
+            Room? roomObj = await _db.Rooms.FindAsync(bookObj.RoomId);
+            if (roomObj == null)
+            {
+                TempData["error"] = "Room Not Found.";
+                return RedirectToAction("Index");
+            }
+
+            RoomBookingVM roomBookObj = new RoomBookingVM
+            {
+                Room = roomObj,
+                BookingId = bookObj.Id,
+                BookingName = bookObj.Name,
+                StartTime = bookObj.StartTime,
+                EndTime = bookObj.EndTime,
+            };
+            return View(roomBookObj);
         }
+
+
     }
+}
