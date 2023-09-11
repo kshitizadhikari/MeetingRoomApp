@@ -278,5 +278,20 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             TempData["success"] = "Participant Added Successfully.";
             return RedirectToAction("EditBooking", new { id = obj.BookingId });
         }
+
+        public async Task<IActionResult> RemoveParticipant(int? id)
+        {
+            Participant? obj = await _db.Participants.FindAsync(id);
+            if (obj == null)
+            {
+                TempData["error"] = "Participant Object Null";
+                return RedirectToAction("Index");
+            }
+            _db.Participants.Remove(obj);
+            await _db.SaveChangesAsync();
+            TempData["success"] = "Participant object removed successfully.";
+            return RedirectToAction("EditBooking", new { id = obj.BookingId });
+        }
+
     }
 }
