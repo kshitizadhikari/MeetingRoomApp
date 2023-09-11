@@ -1,0 +1,70 @@
+﻿@using RoomApp.Utility.ViewModels;
+
+@model RoomBookingParticipantVM
+
+@{
+    ViewData["Title"] = "Meeting Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1>Meeting Details</h1>
+</div>
+
+<div>
+    <h2>Room Details</h2>
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Room ID: @Model.Room?.Id</li>
+            <li class="list-group-item">Room Name: @Model.Room?.Name</li>
+            <li class="list-group-item">Room Size: @Model.Room?.Size</li>
+            <li class="list-group-item">Room Status: @Model.Room?.Status</li>
+            <li class="list-group-item">Booking Name: @Model.BookingName </li>
+            <li class="list-group-item">Start Time: @Model.StartTime</li>
+            <li class="list-group-item">End Time: @Model.EndTime</li>
+        </ul>
+    </div>
+</div>
+
+
+<div>
+    <div asp-validation-summary="All"></div>
+    <label>Participants: </label>
+    @foreach (var @item in @Model.Participants)
+    {
+
+        @if (item.UserId == ViewBag.UserId)
+        {
+            <form asp-area="BasicUser" asp-controller="Home" asp-action="UpdateMeetingStatus">
+                <input type="hidden" asp-for="BookingId" value="@item.BookingId">
+                <input type="hidden" asp-for="UserId" value="@item.UserId">
+                <ul>
+                    <li>
+                        @item.FirstName @item.LastName - @item.Status
+                        <select asp-for="UserStatus">
+                            <option value="">Select Status</option>
+                            <option value="Accepted">Accepted</option>
+                            <option value="Declined">Declined</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </li>
+                </ul>
+                <button type="submit">Update Status</button>
+            </form>
+
+        }
+        else
+        {
+            <ul>
+                <li>@item.FirstName @item.LastName - @item.Status</li>
+            </ul>
+        }
+    }
+    </>
+</div>
+
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

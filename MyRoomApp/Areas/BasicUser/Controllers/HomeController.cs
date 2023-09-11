@@ -33,6 +33,16 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 Room? room = await _db.Rooms.FindAsync(booking.RoomId);
                 var bookUser = await _db.Users.FindAsync(booking.UserId);
                 string? bookUserId = bookUser.Id;
+                List<Participant> particpantList = await _db.Participants.ToListAsync();
+                List<Participant> bookParticipantList = new List<Participant>();
+
+                foreach (var par in particpantList)
+                {
+                    if (par.UserId == UserId && par.BookingId == booking.Id)
+                    {
+                        bookParticipantList.Add(par);
+                    }
+                }
 
                 vmList.Add(new RoomBookingParticipantVM
                 {
@@ -42,6 +52,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                     BookingName = booking.Name,
                     StartTime = booking.StartTime,
                     EndTime = booking.EndTime,
+                    Participants = bookParticipantList
                 });
             }
             return View(vmList);
@@ -291,6 +302,54 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             await _db.SaveChangesAsync();
             TempData["success"] = "Participant object removed successfully.";
             return RedirectToAction("EditBooking", new { id = obj.BookingId });
+        }
+
+        public async Task<IActionResult> ViewMeetingDetails(int? id)
+        {
+            var currentUser = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            string UserId = currentUser?.ToString() ?? "DefaultUserId";
+            ViewBag.UserId = UserId;
+
+
+            if (id == null || id == 0)
+            {
+                TempData["error"] = "Invalid Id.";
+                return RedirectToAction("Index");
+            }
+
+            Booking? bookObj = await _db.Bookings.FindAsync(id);
+            if (bookObj == null)
+            {
+                TempData["error"] = "Booking object not found.";
+                return RedirectToAction("EditBooking", new { id = id });
+            }
+            Room? roomObj = await _db.Rooms.FindAsync(bookObj.RoomId);
+            if (roomObj == null)
+            {
+                TempData["error"] = "Room object not found.";
+                return RedirectToAction("EditBooking", new { id = id });
+            }
+            List<Participant>? allParticipants = await _db.Participants.ToListAsync();
+            List<Participant> bookingParticipantList = new List<Participant>();
+            foreach (var item in allParticipants)
+            {
+                if (item.BookingId == bookObj.Id)
+                {
+                    bookingParticipantList.Add(item);
+                }
+            }
+
+            RoomBookingParticipantVM roomBookObj = new RoomBookingParticipantVM
+            {
+                Room = roomObj,
+                BookingId = bookObj.Id,
+                BookingName = bookObj.Name,
+                StartTime = bookObj.StartTime,
+                EndTime = bookObj.EndTime,
+                Participants = bookingParticipantList
+            };
+
+            return View(roomBookObj);
         }
 
     }
