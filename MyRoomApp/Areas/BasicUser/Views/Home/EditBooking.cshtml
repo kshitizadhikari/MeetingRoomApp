@@ -1,0 +1,62 @@
+﻿@using RoomApp.Utility.ViewModels;
+@model RoomBookingVM
+
+@{
+    ViewData["Title"] = "Edit Room Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1>Edit Room Booking</h1>
+</div>
+
+<div>
+    <h2>Room Details</h2>
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Room ID: @Model.Room?.Id</li>
+            <li class="list-group-item">Room Name: @Model.Room?.Name</li>
+            <li class="list-group-item">Room Size: @Model.Room?.Size</li>
+            <li class="list-group-item">Room Status: @Model.Room?.Status</li>
+            <li class="list-group-item">Booking Name: @Model.BookingName </li>
+            <li class="list-group-item">Start Time: @Model.StartTime</li>
+            <li class="list-group-item">End Time: @Model.EndTime</li>
+        </ul>
+    </div>
+</div>
+
+
+<div>
+    <div asp-validation-summary="All"></div>
+    <form asp-area="BasicUser" asp-controller="Home" asp-action="EditBooking" method="post">
+        <input type="hidden" asp-for="@Model.Room.Id" value="@Model.Room.Id" />
+        <input type="hidden" asp-for="@Model.Room.Name" value="@Model.Room.Name" />
+        <input type="hidden" asp-for="@Model.Room.Size" value="@Model.Room.Size" />
+        <input type="hidden" asp-for="@Model.Room.Status" value="@Model.Room.Status" />
+        <input type="hidden" asp-for="@Model.BookingId" value="@Model.BookingId" />
+        <div class="mb-3">
+            <label asp-for="@Model.BookingName"></label>
+            <input type="text" asp-for="@Model.BookingName" />
+            <span asp-validation-for="@Model.BookingName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.StartTime"></label>
+            <input type="datetime-local" asp-for="@Model.StartTime" />
+            <span asp-validation-for="@Model.StartTime" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.EndTime"></label>
+            <input type="datetime-local" asp-for="@Model.EndTime" />
+            <span asp-validation-for="@Model.EndTime" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <button type="submit">Update Booking</button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -15,13 +15,13 @@ namespace RoomApp.Models
 
         [Required]
         [ForeignKey("ApplicationUser")]
-        public double UserId { get; set; }
+        public string? UserId { get; set; }
 
         [Required]
         [ForeignKey("Booking")]
-        public int BookingId { get; set; }
+        public int? BookingId { get; set; }
 
         [Required]
-        public bool Status { get; set; } //accepted or declined
+        public string? Status { get; set; } //accepted or declined
     }
 }

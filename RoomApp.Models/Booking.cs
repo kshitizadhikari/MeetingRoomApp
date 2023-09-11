@@ -21,14 +21,14 @@ namespace RoomApp.Models
         public int RoomId { get; set; }
 
         [Required]
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
 
         [Required]
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
 
         [Required]
         [ForeignKey("ApplicationUser")]
-        public double UserId { get; set; } //user id who booked the room
+        public string? UserId { get; set; } //user id who booked the room
         public ApplicationUser? User { get; set; }
 
     }
