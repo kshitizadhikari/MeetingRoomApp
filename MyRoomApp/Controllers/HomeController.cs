@@ -39,7 +39,7 @@ namespace AuthSystem.Controllers
             {
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
-            if (await _userManager.IsInRoleAsync(user, "basic"))
+            if (await _userManager.IsInRoleAsync(user, "basicuser"))
             {
                 return RedirectToAction("Index", "Home", new { area = "BasicUser" });
             }

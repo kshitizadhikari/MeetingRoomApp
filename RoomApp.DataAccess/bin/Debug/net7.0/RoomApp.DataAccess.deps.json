@@ -739,6 +739,9 @@
         }
       },
       "RoomApp.Utility/1.0.0": {
+        "dependencies": {
+          "RoomApp.Models": "1.0.0"
+        },
         "runtime": {
           "RoomApp.Utility.dll": {}
         }

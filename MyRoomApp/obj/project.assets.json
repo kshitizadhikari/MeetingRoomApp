@@ -4046,6 +4046,9 @@
       "RoomApp.Utility/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "RoomApp.Models": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/RoomApp.Utility.dll": {}
         },
@@ -11747,23 +11750,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kshitiz\\.nuget\\packages\\": {},
+    "C:\\Users\\TAF\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\asp.net\\MRA\\MeetingRoomApp\\MyRoomApp\\MyRoomApp.csproj",
+      "projectUniqueName": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\MyRoomApp.csproj",
       "projectName": "MyRoomApp",
-      "projectPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\MyRoomApp\\MyRoomApp.csproj",
-      "packagesPath": "C:\\Users\\kshitiz\\.nuget\\packages\\",
-      "outputPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\MyRoomApp\\obj\\",
+      "projectPath": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\MyRoomApp.csproj",
+      "packagesPath": "C:\\Users\\TAF\\.nuget\\packages\\",
+      "outputPath": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kshitiz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\TAF\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -11772,21 +11775,21 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj": {
-              "projectPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj"
+            "D:\\DotNet\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj": {
+              "projectPath": "D:\\DotNet\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj"
             },
-            "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {
-              "projectPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj"
+            "D:\\DotNet\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {
+              "projectPath": "D:\\DotNet\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj"
             },
-            "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj": {
-              "projectPath": "D:\\asp.net\\MRA\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj"
+            "D:\\DotNet\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj": {
+              "projectPath": "D:\\DotNet\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj"
             }
           }
         }
@@ -11847,7 +11850,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }
