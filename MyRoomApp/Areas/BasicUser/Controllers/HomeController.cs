@@ -157,6 +157,46 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             return View(roomBookObj);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditBooking(RoomBookingVM roomBook)
+        {
+            if (roomBook == null)
+            {
+                TempData["error"] = "Invalid object.";
+                return RedirectToAction("Index");
+            }
+
+            var currentUser = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            string currentUserId = currentUser?.ToString() ?? "DefaultUserId";
+            ApplicationUser? userObj = await _db.Users.FindAsync(currentUserId);
+
+            if (userObj == null)
+            {
+                TempData["error"] = "User Not Found";
+                return RedirectToAction("Index");
+            }
+            Booking? bookingObj = await _db.Bookings.FindAsync(roomBook.BookingId);
+
+            if (bookingObj == null)
+            {
+                TempData["error"] = "Booking Not Found.";
+                return RedirectToAction("Index");
+            }
+
+            bookingObj.Name = roomBook.BookingName;
+            bookingObj.RoomId = roomBook.Room?.Id ?? 0;
+            bookingObj.StartTime = roomBook.StartTime;
+            bookingObj.EndTime = roomBook.EndTime;
+            bookingObj.UserId = currentUserId;
+            bookingObj.User = userObj;
+
+            _db.Bookings.Update(bookingObj);
+            await _db.SaveChangesAsync();
+            TempData["success"] = "Updated Booking Successfully.";
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
