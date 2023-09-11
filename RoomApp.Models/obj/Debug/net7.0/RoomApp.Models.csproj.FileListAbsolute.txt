@@ -34,3 +34,15 @@ D:\asp.net\MRA\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.dll
 D:\asp.net\MRA\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\refint\RoomApp.Models.dll
 D:\asp.net\MRA\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.pdb
 D:\asp.net\MRA\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\ref\RoomApp.Models.dll
+D:\DotNet\MeetingRoomApp\RoomApp.Models\bin\Debug\net7.0\RoomApp.Models.deps.json
+D:\DotNet\MeetingRoomApp\RoomApp.Models\bin\Debug\net7.0\RoomApp.Models.dll
+D:\DotNet\MeetingRoomApp\RoomApp.Models\bin\Debug\net7.0\RoomApp.Models.pdb
+D:\DotNet\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.csproj.AssemblyReference.cache
+D:\DotNet\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\DotNet\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.AssemblyInfoInputs.cache
+D:\DotNet\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.AssemblyInfo.cs
+D:\DotNet\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.csproj.CoreCompileInputs.cache
+D:\DotNet\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.dll
+D:\DotNet\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\refint\RoomApp.Models.dll
+D:\DotNet\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\RoomApp.Models.pdb
+D:\DotNet\MeetingRoomApp\RoomApp.Models\obj\Debug\net7.0\ref\RoomApp.Models.dll
