@@ -3,15 +3,17 @@
 @{
     ViewData["Title"] = "User Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int flag = 0;
 }
 <div>
-    <h1>User IndexPage</h1>
+    <h1>Basic User Index Page</h1>
 </div>
 
 <div>
-    <button><a asp-area="BasicUser" asp-controller="Home" asp-action="ViewRooms">ViewRooms</a></button>
+    <button>
+        <a asp-area="BasicUser" asp-controller="Home" asp-action="ViewRooms">View Room</a>
+    </button>
 </div>
-
 <div class="mybooking">
     <div>
         <h2>My Bookings</h2>
@@ -50,3 +52,94 @@
         </table>
     </div>
 </div>
+<div class="allbooking">
+    <div>
+        <h2>All Bookings</h2>
+    </div>
+    <div>
+        <table class="table table-dark table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>BookingId</th>
+                    <th>BookingName</th>
+                    <th>RoomName</th>
+                    <th>StartTime</th>
+                    <th>EndTime</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.BookingId</td>
+                        <td>@item.BookingName</td>
+                        <td>@item.Room?.Name</td>
+                        <td>@item.StartTime</td>
+                        <td>@item.EndTime</td>
+                        <td>
+                            @if (@item.UserId == ViewBag.UserId)
+                            {
+                                <a asp-area="BasicUser" asp-controller="Home" asp-action="EditBooking" asp-route-id="@item.BookingId">Edit</a>
+                                <a asp-area="BasicUser" asp-controller="Home" asp-action="DeleteBooking" asp-route-id="@item.BookingId">Remove</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="booked in">
+    <div>
+        <h2>You have been booked in:</h2>
+    </div>
+    <div>
+        <table class="table table-dark table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>BookingId</th>
+                    <th>BookingName</th>
+                    <th>RoomName</th>
+                    <th>StartTime</th>
+                    <th>EndTime</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    flag = 0;
+                    @foreach (var par in @item.Participants)
+                    {
+                        @if (@par.UserId == ViewBag.UserId)
+                        {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    @if (flag == 1)
+                    {
+                        <tr>
+                            <td>@item.BookingId</td>
+                            <td>@item.BookingName</td>
+                            <td>@item.Room?.Name</td>
+                            <td>@item.StartTime</td>
+                            <td>@item.EndTime</td>
+                            <td>
+                                <a asp-area="BasicUser" asp-controller="Home" asp-action="ViewMeetingDetails" asp-route-id="@item.BookingId">ViewDetails</a>
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
