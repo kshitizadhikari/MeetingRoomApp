@@ -13,6 +13,24 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<Room>()
+                .HasMany(r => r.Bookings)
+                .WithOne(b => b.Room)
+                .HasForeignKey(b => b.RoomId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+        builder.Entity<Booking>()
+                .HasMany(b => b.Participants)
+                .WithOne(p => p.Booking)
+                .HasForeignKey(p => p.BookingId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+        builder.Entity<ApplicationUser>()
+               .HasMany(u => u.Bookings)
+               .WithOne(b => b.User)
+               .HasForeignKey(b => b.UserId)
+               .OnDelete(DeleteBehavior.ClientSetNull);
+
         base.OnModelCreating(builder);
         // Customize the ASP.NET Identity model and override the defaults if needed.
         // For example, you can rename the ASP.NET Identity table names and more.

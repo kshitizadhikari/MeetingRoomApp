@@ -10,12 +10,16 @@ namespace RoomApp.Models
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("Booking")]
         public int? BookingId { get; set; }
 
+        [ForeignKey("BookingId")]
+        public virtual Booking? Booking { get; set; }
+
         [Required]
-        [ForeignKey("ApplicationUser")]
         public string? UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser? User { get; set; }
 
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

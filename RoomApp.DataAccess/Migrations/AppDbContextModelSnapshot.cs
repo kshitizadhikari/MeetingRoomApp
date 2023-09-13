@@ -261,6 +261,8 @@ namespace RoomApp.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoomId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
@@ -289,9 +291,13 @@ namespace RoomApp.DataAccess.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Participants");
                 });
@@ -373,13 +379,52 @@ namespace RoomApp.DataAccess.Migrations
 
             modelBuilder.Entity("RoomApp.Models.Booking", b =>
                 {
+                    b.HasOne("RoomApp.Models.Room", "Room")
+                        .WithMany("Bookings")
+                        .HasForeignKey("RoomId")
+                        .IsRequired();
+
+                    b.HasOne("RoomApp.Models.ApplicationUser", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId")
+                        .IsRequired();
+
+                    b.Navigation("Room");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RoomApp.Models.Participant", b =>
+                {
+                    b.HasOne("RoomApp.Models.Booking", "Booking")
+                        .WithMany("Participants")
+                        .HasForeignKey("BookingId")
+                        .IsRequired();
+
                     b.HasOne("RoomApp.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Booking");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RoomApp.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("RoomApp.Models.Booking", b =>
+                {
+                    b.Navigation("Participants");
+                });
+
+            modelBuilder.Entity("RoomApp.Models.Room", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }
