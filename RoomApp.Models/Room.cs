@@ -16,6 +16,7 @@ namespace RoomApp.Models
         public string? Name { get; set; }
 
         [Required]
+        [Range(1, 20)]
         public int Size { get; set; }
 
         [Required]

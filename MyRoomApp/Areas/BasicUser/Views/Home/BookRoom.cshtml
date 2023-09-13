@@ -21,11 +21,11 @@
     <div class="card" style="width: 18rem;">
         <form asp-area="BasicUser" asp-controller="Home" asp-action="BookRoom" method="post">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Room ID: @Model.Room.Id<input type="hidden" asp-for="@Model.Room.Id" value="@Model.Room?.Id" /></li>
+                <input type="hidden" asp-for="@Model.Room.Id" value="@Model.Room?.Id" />
                 <li class="list-group-item">Room Name: @Model.Room?.Name<input type="hidden" asp-for="@Model.Room.Name" value="@Model.Room?.Name" /></li>
                 <li class="list-group-item">Room Size: @Model.Room?.Size<input type="hidden" asp-for="@Model.Room.Size" value="@Model.Room?.Size" /></li>
                 <li class="list-group-item">Room Status: @Model.Room?.Status<input type="hidden" asp-for="@Model.Room.Status" value="@Model.Room?.Status" /></li>
-                <li class="list-group-item">Booking Id: <input type="hidden" asp-for="@Model.BookingId" value="@Model.BookingId" /></li>
+                <input type="hidden" asp-for="@Model.BookingId" value="@Model.BookingId" />
 
                 <li class="list-group-item">Booking Name: <input type="text" asp-for="@Model.BookingName" /></li>
                 <li class="list-group-item">Start Time: <input type="datetime-local" asp-for="@Model.StartTime" /> </li>
