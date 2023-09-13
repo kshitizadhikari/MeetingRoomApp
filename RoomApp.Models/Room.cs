@@ -15,11 +15,12 @@ namespace RoomApp.Models
         [Required(ErrorMessage = "Room name is required")]
         public string? Name { get; set; }
 
-        [Required]
-        [Range(1, 20)]
+        [Required(ErrorMessage = "Room size is required")]
         public int Size { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Room status is required")]
         public string? Status { get; set; } //occupied or free to use
+
+        public ICollection<Booking>? Bookings { get; set; }
     }
 }

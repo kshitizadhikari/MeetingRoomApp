@@ -20,6 +20,9 @@ namespace RoomApp.Models
         [Column(TypeName = "nvarchar(100)")]
         [Required]
         public string? LastName { get; set; }
+
+        public ICollection<Booking>? Bookings { get; set; }
+
     }
 
 
