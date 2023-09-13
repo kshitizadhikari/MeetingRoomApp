@@ -16,16 +16,11 @@
         </div>
         <div class="mb-3">
             <label asp-for="@Model.Size"></label>
-            <input asp-for="@Model.Size" />
+            <input asp-for="@Model.Size" type="number" min="1" max="20" />
             <span asp-validation-for="@Model.Size" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="@Model.Status"></label>
-            <select asp-for="@Model.Status">
-                <option value="Available">Available</option>
-                <option value="Full">Full</option>
-            </select>
-            <span asp-validation-for="@Model.Status" class="text-danger"></span>
+            <input type="hidden" asp-for="Status" value="Available" />
         </div>
         <div class="mb-3">
             <button type="submit">Create Room</button>

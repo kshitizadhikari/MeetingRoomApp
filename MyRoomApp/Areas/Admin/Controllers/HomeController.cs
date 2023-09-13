@@ -55,7 +55,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
             Room? roomObj = await _db.Rooms.FindAsync(id);
             if(roomObj == null)
             {
-                TempData["error"] = "No such room exists in the database.";
+                TempData["error"] = "Room Not Found.";
                 return RedirectToAction("Index");
             }
             return View(roomObj);
@@ -68,7 +68,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
             Room? roomObj = await _db.Rooms.FindAsync(obj.Id);
             if(roomObj == null)
             {
-                TempData["error"] = "No such room exists in the database.";
+                TempData["error"] = "Room Not Found.";
                 return RedirectToAction("Index");
             }
 
@@ -93,7 +93,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
             Room? roomObj = await _db.Rooms.FindAsync(id);
             if (roomObj == null)
             {
-                TempData["error"] = "No such room exists in the database.";
+                TempData["error"] = "Room Not Found.";
                 return RedirectToAction("Index");
             }
 

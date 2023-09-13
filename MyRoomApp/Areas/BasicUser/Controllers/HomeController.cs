@@ -59,35 +59,35 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
         }
 
         public async Task<IActionResult> ViewRooms()
+        {
+            IEnumerable<Room> allRooms = await _db.Rooms.ToListAsync();
+            return View(allRooms);
+        }
+
+        public async Task<IActionResult> BookRoom(int? id)
+        {
+            if (id == null || id == 0)
             {
-                IEnumerable<Room> allRooms = await _db.Rooms.ToListAsync();
-                return View(allRooms);
+                TempData["error"] = "Invalid Id.";
+                return RedirectToAction("Index");
             }
 
-            public async Task<IActionResult> BookRoom(int? id)
+            Room? roomObj = await _db.Rooms.FindAsync(id);
+            if (roomObj == null)
             {
-                if (id == null || id == 0)
-                {
-                    TempData["error"] = "Invalid Id.";
-                    return RedirectToAction("Index");
-                }
+                TempData["error"] = "Room Not Found.";
+                return RedirectToAction("Index");
+            }
 
-                Room? roomObj = await _db.Rooms.FindAsync(id);
-                if (roomObj == null)
-                {
-                    TempData["error"] = "Room Not Found.";
-                    return RedirectToAction("Index");
-                }
-
-                RoomBookingParticipantVM roomBookObj = new RoomBookingParticipantVM
-                {
-                    Room = roomObj,
-                    BookingId = 0,
-                    BookingName = "",
-                    StartTime = null,
-                    EndTime = null
-                };
-                return View(roomBookObj);
+            RoomBookingParticipantVM roomBookObj = new RoomBookingParticipantVM
+            {
+                Room = roomObj,
+                BookingId = 0,
+                BookingName = "",
+                StartTime = null,
+                EndTime = null
+            };
+            return View(roomBookObj);
         }
 
         [HttpPost]
@@ -106,18 +106,15 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             List<Booking> allBookings = _db.Bookings.ToList();
             foreach (var booking in allBookings)
             {
-                if (booking.UserId == currentUserIdString)
+                if (roomBook.StartTime >= booking.StartTime && roomBook.StartTime < booking.EndTime)
                 {
-                    if (roomBook.StartTime >= booking.StartTime && roomBook.StartTime < booking.EndTime)
-                    {
-                        TempData["error"] = "Starting Time Conflict. Choose a different starting time.";
-                        return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
-                    }
-                    else if (roomBook.EndTime > booking.StartTime && roomBook.EndTime <= booking.EndTime)
-                    {
-                        TempData["error"] = "End Time Conflict. Choose a different ending time.";
-                        return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
-                    }
+                    TempData["error"] = "Starting Time Conflict. Choose a different starting time.";
+                    return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
+                }
+                else if (roomBook.EndTime > booking.StartTime && roomBook.EndTime <= booking.EndTime)
+                {
+                    TempData["error"] = "End Time Conflict. Choose a different ending time.";
+                    return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
                 }
             }
 
@@ -350,6 +347,18 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             };
 
             return View(roomBookObj);
+        }
+
+        public async Task<IActionResult> UpdateMeetingStatus(RoomBookingParticipantVM obj)
+        {
+            Participant? participant = _db.Participants.FirstOrDefault(x => x.UserId == obj.UserId && x.BookingId == obj.BookingId);
+            string? userStatus = obj.UserStatus.ToString();
+            ParticipantStatus enumValue = (ParticipantStatus)ParticipantStatus.Parse(typeof(ParticipantStatus), userStatus);
+            participant.Status = enumValue;
+            _db.Participants.Update(participant);
+            await _db.SaveChangesAsync();
+            TempData["sucess"] = "Participant status updated successfully.";
+            return RedirectToAction("Index");
         }
 
     }

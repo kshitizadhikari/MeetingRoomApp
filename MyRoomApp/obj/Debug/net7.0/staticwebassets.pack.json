@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\MyRoomApp.bundle.scp.css"
     },
     {
+      "Id": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\wwwroot\\css\\bootswatchThemeSketchy.css",
+      "PackagePath": "staticwebassets\\css\\bootswatchThemeSketchy.css"
+    },
+    {
       "Id": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

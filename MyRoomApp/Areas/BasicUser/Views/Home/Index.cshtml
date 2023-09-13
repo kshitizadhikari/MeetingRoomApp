@@ -19,9 +19,9 @@
         <h2>My Bookings</h2>
     </div>
     <div>
-        <table class="table table-dark table-striped table-hover">
+        <table class="table table-hover">
             <thead>
-                <tr>
+                <tr class="table-dark">
                     <th>BookingId</th>
                     <th>BookingName</th>
                     <th>RoomName</th>
@@ -35,7 +35,7 @@
                 {
                     @if (@item.UserId == ViewBag.UserId)
                     {
-                        <tr>
+                        <tr class="table-primary">
                             <td>@item.BookingId</td>
                             <td>@item.BookingName</td>
                             <td>@item.Room?.Name</td>
@@ -57,9 +57,9 @@
         <h2>All Bookings</h2>
     </div>
     <div>
-        <table class="table table-dark table-striped table-hover">
+        <table class="table table-hover">
             <thead>
-                <tr>
+                <tr class="table-dark">
                     <th>BookingId</th>
                     <th>BookingName</th>
                     <th>RoomName</th>
@@ -71,7 +71,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr class="table-primary">
                         <td>@item.BookingId</td>
                         <td>@item.BookingName</td>
                         <td>@item.Room?.Name</td>
@@ -96,9 +96,9 @@
         <h2>You have been booked in:</h2>
     </div>
     <div>
-        <table class="table table-dark table-striped table-hover">
+        <table class="table table-hover">
             <thead>
-                <tr>
+                <tr class="table-dark">
                     <th>BookingId</th>
                     <th>BookingName</th>
                     <th>RoomName</th>
@@ -121,7 +121,7 @@
                     }
                     @if (flag == 1)
                     {
-                        <tr>
+                        <tr class="table-primary">
                             <td>@item.BookingId</td>
                             <td>@item.BookingName</td>
                             <td>@item.Room?.Name</td>

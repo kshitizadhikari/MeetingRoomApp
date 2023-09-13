@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Room>
 @{
-    ViewData["Title"] = "Admin Index";
+    ViewData["Title"] = "Admin Create Room";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -26,9 +26,9 @@
     </button>
 </div>
 <div>
-    <table class="table table-dark table-striped table-hover">
+    <table class ="table table-hover">
         <thead>
-            <tr>
+            <tr class="table-dark">
                 <th>Id</th>
                 <th>Room Name</th>
                 <th>Size</th>
@@ -39,7 +39,7 @@
         <tbody>
             @foreach (var room in Model)
             {
-                <tr>
+                <tr class="table-primary">
                     <td>@room.Id</td>
                     <td>@room.Name</td>
                     <td>@room.Size</td>

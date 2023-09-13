@@ -9,8 +9,9 @@
     "\\MyRoomApp\\Areas\\BasicUser",
     "\\MyRoomApp\\Areas\\BasicUser\\Controllers",
     "\\RoomApp.DataAccess",
-    "\\RoomApp.DataAccess\\DAL"
+    "\\RoomApp.DataAccess\\DAL",
+    "\\RoomApp.Models"
   ],
-  "SelectedNode": "\\MyRoomApp\\Areas\\BasicUser\\Controllers\\HomeController.cs",
+  "SelectedNode": "\\MyRoomApp\\MyRoomApp.sln",
   "PreviewInSolutionExplorer": false
 }
