@@ -38,6 +38,13 @@ namespace MyRoomApp.Areas.Admin.Controllers
                 TempData["error"] = "Model state invalid";
             }
 
+            bool isRoomNameUnique = await _db.Rooms.AllAsync(r => r.Name != obj.Name);
+            if(!isRoomNameUnique)
+            {
+                TempData["error"] = "Duplicate Room Name. Choose a different Name.";
+                return RedirectToAction("CreateRoom");
+            }
+
             _db.Rooms.Add(obj);
             await _db.SaveChangesAsync();
             TempData["success"] = "Room created successfully.";

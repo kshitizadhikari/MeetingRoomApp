@@ -31,6 +31,15 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
                .HasForeignKey(b => b.UserId)
                .OnDelete(DeleteBehavior.ClientSetNull);
 
+        //unique room and booking names
+        builder.Entity<Room>()
+            .HasIndex(r => r.Name)
+            .IsUnique();
+
+        builder.Entity<Booking>()
+            .HasIndex(b => b.Name)
+            .IsUnique();
+
         base.OnModelCreating(builder);
         // Customize the ASP.NET Identity model and override the defaults if needed.
         // For example, you can rename the ASP.NET Identity table names and more.
