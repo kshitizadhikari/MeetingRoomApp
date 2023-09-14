@@ -244,20 +244,20 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Participant = await _db.Users.ToListAsync();
+            var usersNotInParticipants = _db.Users
+                .Where(u => !_db.Participants.Any(p => p.UserId == u.Id && p.BookingId == roomBookObj.BookingId))
+                .ToList();
 
-            BookingParticipantsVM obj = new BookingParticipantsVM
-            {
-                BookingId = roomBookObj.BookingId,
-                UserId = "",
-                ParticipantStatus = ParticipantStatus.Pending
-            };
-            return View("AddParticipant", obj);
+
+            ViewBag.Participant = usersNotInParticipants;
+
+            roomBookObj.UserStatus = ParticipantStatus.Pending;
+            return View("AddParticipant", roomBookObj);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddParticipant(BookingParticipantsVM obj)
+        public async Task<IActionResult> AddParticipant(RoomBookingParticipantVM obj)
         {
             if (obj == null)
             {
@@ -272,14 +272,23 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("Index");
             }
 
+            int? roomSize = obj.Room.Size;
+            int currentBookingParticipantCount = _db.Participants.Where(p => p.BookingId == obj.BookingId).Count();
+
+            if (currentBookingParticipantCount == (roomSize - 1))
+            {
+                TempData["error"] = "Room Size Full. Cannot add more Participants.";
+                return RedirectToAction("EditBooking", new { id = obj.BookingId });
+            }
             Participant participant = new Participant
             {
                 BookingId = obj.BookingId,
                 UserId = obj.UserId,
                 FirstName = user?.FirstName,
                 LastName = user?.LastName,
-                Status = obj.ParticipantStatus
+                Status = ParticipantStatus.Pending
             };
+
 
             _db.Participants.Add(participant);
             await _db.SaveChangesAsync();
