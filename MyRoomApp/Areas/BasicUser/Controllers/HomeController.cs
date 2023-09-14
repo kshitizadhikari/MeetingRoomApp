@@ -99,6 +99,13 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 TempData["error"] = "Room Booking Unsuccessful.";
             }
 
+            bool isBookingNameUnique = await _db.Bookings.AllAsync(b => b.Name != roomBook.BookingName);
+            if(!isBookingNameUnique)
+            {
+                TempData["error"] = "Duplicate Booking Name. Choose a different Name.";
+                return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
+            }
+
             var currentUserId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             string currentUserIdString = currentUserId?.ToString() ?? "DefaultUserId";
             ApplicationUser? userObj = await _db.Users.FindAsync(currentUserIdString);

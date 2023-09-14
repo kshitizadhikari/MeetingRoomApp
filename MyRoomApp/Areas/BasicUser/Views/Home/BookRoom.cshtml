@@ -26,10 +26,19 @@
                 <li class="list-group-item">Room Size: @Model.Room?.Size<input type="hidden" asp-for="@Model.Room.Size" value="@Model.Room?.Size" /></li>
                 <li class="list-group-item">Room Status: @Model.Room?.Status<input type="hidden" asp-for="@Model.Room.Status" value="@Model.Room?.Status" /></li>
                 <input type="hidden" asp-for="@Model.BookingId" value="@Model.BookingId" />
-
-                <li class="list-group-item">Booking Name: <input type="text" asp-for="@Model.BookingName" /></li>
-                <li class="list-group-item">Start Time: <input type="datetime-local" asp-for="@Model.StartTime" /> </li>
-                <li class="list-group-item">End Time: <input type="datetime-local" asp-for="@Model.EndTime" /> </li>
+                <li class="list-group-item">
+                    Booking Name:
+                    <input type="text" asp-for="@Model.BookingName" />
+                    <span asp-validation-for="@Model.BookingName" class="text-danger"></span>
+                </li>
+                <li class="list-group-item">
+                    Start Time:
+                    <input type="datetime-local" asp-for="@Model.StartTime" />
+                </li>
+                <li class="list-group-item">
+                    End Time:
+                    <input type="datetime-local" asp-for="@Model.EndTime" />
+                </li>
             </ul>
             <div>
                 <button type="submit">Book Room</button>
@@ -38,3 +47,9 @@
 
     </div>
 </div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

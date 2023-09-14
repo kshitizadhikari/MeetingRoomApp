@@ -11,6 +11,6 @@
     "\\RoomApp.DataAccess\\DAL",
     "\\RoomApp.Models"
   ],
-  "SelectedNode": "\\MyRoomApp\\wwwroot\\css\\bootswatchThemeSketchy.css",
+  "SelectedNode": "\\MyRoomApp\\Areas\\BasicUser\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }
