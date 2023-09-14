@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Ws2xxR0EfqEiBhis6SRT70c6vMjTwl+DZtenkYLx32gfTRotE63d8JjSomY7WgWsfnOiHYS78IjR3FvRJ/BARQ==",
+  "dgSpecHash": "DhQvBtJbasp0Y2PFYaNWtf/Pn6C/BrURHD02dKSwbx9yB9wGoqp2SnPLdZqfBV2zji6LCUUlifrkADzBVyDdHA==",
   "success": true,
   "projectFilePath": "D:\\DotNet\\MeetingRoomApp\\RoomApp.DataAccess\\RoomApp.DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TAF\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\TAF\\.nuget\\packages\\jquery\\3.7.1\\jquery.3.7.1.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.10\\microsoft.aspnetcore.cryptography.internal.7.0.10.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.10\\microsoft.aspnetcore.cryptography.keyderivation.7.0.10.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.10\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.10.nupkg.sha512",

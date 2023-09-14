@@ -230,6 +230,9 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("Index");
             }
 
+            List<Participant> participantsInBooking = _db.Participants.Where(p => p.BookingId == bookObj.Id).ToList();
+            _db.Participants.RemoveRange(participantsInBooking);
+
             _db.Bookings.Remove(bookObj);
             await _db.SaveChangesAsync();
             TempData["success"] = "Booking Removed Successfully.";

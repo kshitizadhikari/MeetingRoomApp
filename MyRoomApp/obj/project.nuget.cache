@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dzVr+X0AtnlPG6tj2CCjw2GhIrJHNtHXqKaJ7OteLm4GL7SrQVqW0jmlbSP+QXHNbqN85lx+dqJXI3WLYMg/ow==",
+  "dgSpecHash": "kNz/8pp+p/yll6wzB0FNCQl8eDqQwflGtS8fTlETugVF1Vsav3kzUm/3rDvfnlmtNZ1utxVneSWsefvWb3knJQ==",
   "success": true,
   "projectFilePath": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\MyRoomApp.csproj",
   "expectedPackageFiles": [
@@ -56,6 +56,7 @@
     "C:\\Users\\TAF\\.nuget\\packages\\humanizer.core.zh-cn\\2.14.1\\humanizer.core.zh-cn.2.14.1.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\humanizer.core.zh-hans\\2.14.1\\humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\humanizer.core.zh-hant\\2.14.1\\humanizer.core.zh-hant.2.14.1.nupkg.sha512",
+    "C:\\Users\\TAF\\.nuget\\packages\\jquery\\3.7.1\\jquery.3.7.1.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.10\\microsoft.aspnetcore.cryptography.internal.7.0.10.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.10\\microsoft.aspnetcore.cryptography.keyderivation.7.0.10.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.10\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.10.nupkg.sha512",
@@ -234,7 +235,8 @@
     "C:\\Users\\TAF\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\TAF\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\TAF\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\TAF\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\TAF\\.nuget\\packages\\toastr\\2.1.1\\toastr.2.1.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -3,15 +3,14 @@
     "",
     "\\MyRoomApp",
     "\\MyRoomApp\\Areas",
-    "\\MyRoomApp\\Areas\\Admin",
-    "\\MyRoomApp\\Areas\\Admin\\Views",
-    "\\MyRoomApp\\Areas\\Admin\\Views\\Home",
     "\\MyRoomApp\\Areas\\BasicUser",
     "\\MyRoomApp\\Areas\\BasicUser\\Controllers",
+    "\\MyRoomApp\\wwwroot",
+    "\\MyRoomApp\\wwwroot\\css",
     "\\RoomApp.DataAccess",
     "\\RoomApp.DataAccess\\DAL",
     "\\RoomApp.Models"
   ],
-  "SelectedNode": "\\MyRoomApp\\MyRoomApp.sln",
+  "SelectedNode": "\\MyRoomApp\\wwwroot\\css\\bootswatchThemeSketchy.css",
   "PreviewInSolutionExplorer": false
 }
