@@ -4,14 +4,8 @@
     "\\MyRoomApp",
     "\\MyRoomApp\\Areas",
     "\\MyRoomApp\\Areas\\Admin",
-    "\\MyRoomApp\\Areas\\Admin\\Views",
-    "\\MyRoomApp\\Areas\\Admin\\Views\\Home",
-    "\\MyRoomApp\\Areas\\BasicUser",
-    "\\MyRoomApp\\Areas\\BasicUser\\Controllers",
-    "\\RoomApp.DataAccess",
-    "\\RoomApp.DataAccess\\DAL",
-    "\\RoomApp.Models"
+    "\\MyRoomApp\\Areas\\Admin\\Controllers"
   ],
-  "SelectedNode": "\\MyRoomApp\\MyRoomApp.sln",
+  "SelectedNode": "\\MyRoomApp\\Areas\\Admin\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }
