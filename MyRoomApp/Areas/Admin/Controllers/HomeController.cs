@@ -97,6 +97,13 @@ namespace MyRoomApp.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
+            List<Booking> bookingsInRoom = _db.Bookings.Where(b => b.RoomId == roomObj.Id).ToList();
+            if(bookingsInRoom.Count > 0)
+            {
+                TempData["error"] = "Cannot delete room because of associated bookings.";
+                return RedirectToAction("Index");
+            }
+
             _db.Rooms.Remove(roomObj);
             await _db.SaveChangesAsync();
             TempData["success"] = "Room deleted successfully.";

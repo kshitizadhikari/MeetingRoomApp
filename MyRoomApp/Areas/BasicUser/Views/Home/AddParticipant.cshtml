@@ -1,6 +1,6 @@
 ﻿@using RoomApp.Utility.ViewModels;
 @using RoomApp.Models.Enum;
-@model BookingParticipantsVM
+@model RoomBookingParticipantVM
 @{
     ViewData["Title"] = "Edit Room Booking";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,6 +13,10 @@
 <div>
     <div asp-validation-summary="All"></div>
     <form asp-area="BasicUser" asp-controller="Home" asp-action="AddParticipant" method="post">
+        <input type="hidden" asp-for="@Model.Room.Id" value="@Model.Room.Id" />
+        <input type="hidden" asp-for="@Model.Room.Name" value="@Model.Room.Name" />
+        <input type="hidden" asp-for="@Model.Room.Size" value="@Model.Room.Size" />
+        <input type="hidden" asp-for="@Model.Room.Status" value="@Model.Room.Status" />
         <input type="hidden" asp-for="@Model.BookingId" value="@Model.BookingId" />
         <div class="mb-3">
             <label asp-for="@Model.UserId"></label>
@@ -20,11 +24,6 @@
                 <option value="">Select a User</option>
             </select>
             <span asp-validation-for="@Model.UserId" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="@Model.ParticipantStatus"></label>
-            <select asp-for="ParticipantStatus" asp-items="Html.GetEnumSelectList<ParticipantStatus>()"></select>
-            <span asp-validation-for="@Model.ParticipantStatus" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <button type="submit">Add Participant</button>

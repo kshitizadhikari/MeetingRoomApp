@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using RoomApp.Models;
+using RoomApp.Models.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace RoomApp.Utility.ViewModels
@@ -23,6 +24,6 @@ namespace RoomApp.Utility.ViewModels
 
         public List<Participant>? Participants { get; set; }
 
-        public string? UserStatus { get; set; }
+        public ParticipantStatus? UserStatus { get; set; }
     }
 }
