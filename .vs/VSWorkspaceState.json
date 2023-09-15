@@ -3,14 +3,11 @@
     "",
     "\\MyRoomApp",
     "\\MyRoomApp\\Areas",
-    "\\MyRoomApp\\Areas\\BasicUser",
-    "\\MyRoomApp\\Areas\\BasicUser\\Controllers",
-    "\\MyRoomApp\\wwwroot",
+    "\\MyRoomApp\\Areas\\Admin",
+    "\\MyRoomApp\\Areas\\Admin\\Controllers",
     "\\MyRoomApp\\wwwroot\\css",
-    "\\RoomApp.DataAccess",
-    "\\RoomApp.DataAccess\\DAL",
-    "\\RoomApp.Models"
+    "\\RoomApp.DataAccess\\DAL"
   ],
-  "SelectedNode": "\\MyRoomApp\\Areas\\BasicUser\\Controllers\\HomeController.cs",
+  "SelectedNode": "\\MyRoomApp\\Areas\\Admin\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoomApp.DataAccess.DAL;
+using RoomApp.DataAccess.Infrastructure.Interfaces;
 using RoomApp.Models;
 
 namespace MyRoomApp.Areas.Admin.Controllers
@@ -12,15 +13,17 @@ namespace MyRoomApp.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         private readonly AppDbContext _db;
+        private readonly IRepositoryWrapper _repository;
 
-        public HomeController(AppDbContext db)
+        public HomeController(AppDbContext db, IRepositoryWrapper repository)
         {
             _db = db;
+            _repository = repository;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Room> allRooms = await _db.Rooms.ToListAsync();
+            IEnumerable<Room> allRooms = await _repository.Room.FindAll().ToListAsync();
             return View(allRooms);
         }
 
@@ -33,34 +36,37 @@ namespace MyRoomApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRoom(Room obj)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 TempData["error"] = "Model state invalid";
             }
 
-            bool isRoomNameUnique = await _db.Rooms.AllAsync(r => r.Name != obj.Name);
-            if(!isRoomNameUnique)
+            bool isRoomNameUnique = !await _repository.Room
+            .FindByCondition(r => r.Name == obj.Name)
+            .AnyAsync();
+
+            if (!isRoomNameUnique)
             {
                 TempData["error"] = "Duplicate Room Name. Choose a different Name.";
                 return RedirectToAction("CreateRoom");
             }
 
-            _db.Rooms.Add(obj);
-            await _db.SaveChangesAsync();
+            _repository.Room.Create(obj);
+            _repository.Save();
             TempData["success"] = "Room created successfully.";
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> EditRoom(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 TempData["error"] = "Invalid Room Id";
                 return RedirectToAction("Index");
             }
 
             Room? roomObj = await _db.Rooms.FindAsync(id);
-            if(roomObj == null)
+            if (roomObj == null)
             {
                 TempData["error"] = "Room Not Found.";
                 return RedirectToAction("Index");
@@ -73,7 +79,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
         public async Task<IActionResult> EditRoom(Room obj)
         {
             Room? roomObj = await _db.Rooms.FindAsync(obj.Id);
-            if(roomObj == null)
+            if (roomObj == null)
             {
                 TempData["error"] = "Room Not Found.";
                 return RedirectToAction("Index");
@@ -88,7 +94,6 @@ namespace MyRoomApp.Areas.Admin.Controllers
             TempData["success"] = "Room details updated successfully.";
             return RedirectToAction("Index");
         }
-
         public async Task<IActionResult> DeleteRoom(int? id)
         {
             if (id == null || id == 0)
@@ -105,7 +110,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
             }
 
             List<Booking> bookingsInRoom = _db.Bookings.Where(b => b.RoomId == roomObj.Id).ToList();
-            if(bookingsInRoom.Count > 0)
+            if (bookingsInRoom.Count > 0)
             {
                 TempData["error"] = "Cannot delete room because of associated bookings.";
                 return RedirectToAction("Index");
