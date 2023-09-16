@@ -46,7 +46,7 @@ namespace RoomApp.DataAccess.DAL
             var defaultUser = new ApplicationUser
             {
                 FirstName = "Super",
-                LastName = "Admin",
+                LastName = "BasicUser",
                 UserName = "superadmin@gmail.com",
                 Email = "superadmin@gmail.com",
                 EmailConfirmed = false,

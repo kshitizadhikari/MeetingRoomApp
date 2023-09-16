@@ -137,7 +137,9 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
 
             _db.Bookings.Add(bookingObj);
             await _db.SaveChangesAsync();
+            int abc = bookingObj.Id;
             TempData["success"] = "Room Booked Successfully";
+
             return RedirectToAction("Index");
         }
 

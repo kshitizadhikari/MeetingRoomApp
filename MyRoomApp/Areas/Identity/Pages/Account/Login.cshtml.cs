@@ -123,9 +123,9 @@ namespace MyRoomApp.Areas.Identity.Pages.Account
                     {
                         return RedirectToAction("Index", "Home", new {area = "SuperAdmin"});
                     }
-                    if(await _userManager.IsInRoleAsync(user, "Admin"))
+                    if(await _userManager.IsInRoleAsync(user, "BasicUser"))
                     {
-                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                        return RedirectToAction("Index", "Home", new { area = "BasicUser" });
                     }
                     if (await _userManager.IsInRoleAsync(user, "BasicUser"))
                     {
