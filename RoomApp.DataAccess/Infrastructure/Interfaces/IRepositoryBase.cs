@@ -11,6 +11,7 @@ namespace RoomApp.DataAccess.Infrastructure.Interfaces
     {
         IQueryable<T> FindAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
+        Task<T?> FindById(object id);
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);

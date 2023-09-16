@@ -11,6 +11,6 @@ namespace RoomApp.DataAccess.Infrastructure.Interfaces
         IRoomRepository Room { get; }
         IBookingRepository Booking { get; }
         IParticipantsRepository Participants { get; }
-        void Save();
+        Task Save();
     }
 }

@@ -19,6 +19,11 @@ namespace RoomApp.DataAccess.Infrastructure.Repositories
             _db = db;
         }
         public IQueryable<T> FindAll() => _db.Set<T>().AsNoTracking();
+        public async Task<T?> FindById(object Id)
+        {
+            return await _db.Set<T>().FindAsync(Id);
+        }
+
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression) => _db.Set<T>().Where(expression).AsNoTracking();
         public void Create(T entity) => _db.Set<T>().Add(entity);
         public void Update(T entity) => _db.Set<T>().Update(entity);

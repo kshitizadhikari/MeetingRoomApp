@@ -12,12 +12,10 @@ namespace MyRoomApp.Areas.Admin.Controllers
     [Route("Admin/[controller]/[action]")]
     public class HomeController : Controller
     {
-        private readonly AppDbContext _db;
         private readonly IRepositoryWrapper _repository;
 
-        public HomeController(AppDbContext db, IRepositoryWrapper repository)
+        public HomeController(IRepositoryWrapper repository)
         {
-            _db = db;
             _repository = repository;
         }
 
@@ -40,10 +38,10 @@ namespace MyRoomApp.Areas.Admin.Controllers
             {
                 TempData["error"] = "Model state invalid";
             }
-
             bool isRoomNameUnique = !await _repository.Room
             .FindByCondition(r => r.Name == obj.Name)
             .AnyAsync();
+
 
             if (!isRoomNameUnique)
             {
@@ -52,7 +50,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
             }
 
             _repository.Room.Create(obj);
-            _repository.Save();
+             await _repository.Save();
             TempData["success"] = "Room created successfully.";
             return RedirectToAction("Index");
         }
@@ -65,7 +63,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            Room? roomObj = await _db.Rooms.FindAsync(id);
+            Room? roomObj = await _repository.Room.FindById(id);
             if (roomObj == null)
             {
                 TempData["error"] = "Room Not Found.";
@@ -78,7 +76,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditRoom(Room obj)
         {
-            Room? roomObj = await _db.Rooms.FindAsync(obj.Id);
+            Room? roomObj = await _repository.Room.FindById(obj.Id);
             if (roomObj == null)
             {
                 TempData["error"] = "Room Not Found.";
@@ -89,8 +87,8 @@ namespace MyRoomApp.Areas.Admin.Controllers
             roomObj.Name = obj.Name;
             roomObj.Size = obj.Size;
             roomObj.Status = obj.Status;
-            _db.Update(roomObj);
-            await _db.SaveChangesAsync();
+            _repository.Room.Update(roomObj);
+            await _repository.Save();
             TempData["success"] = "Room details updated successfully.";
             return RedirectToAction("Index");
         }
@@ -102,22 +100,22 @@ namespace MyRoomApp.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            Room? roomObj = await _db.Rooms.FindAsync(id);
+            Room? roomObj = await _repository.Room.FindById(id);
             if (roomObj == null)
             {
                 TempData["error"] = "Room Not Found.";
                 return RedirectToAction("Index");
             }
 
-            List<Booking> bookingsInRoom = _db.Bookings.Where(b => b.RoomId == roomObj.Id).ToList();
+            List<Booking> bookingsInRoom = await _repository.Booking.FindByCondition(b => b.RoomId == roomObj.Id).ToListAsync();
+
             if (bookingsInRoom.Count > 0)
             {
                 TempData["error"] = "Cannot delete room because of associated bookings.";
                 return RedirectToAction("Index");
             }
-
-            _db.Rooms.Remove(roomObj);
-            await _db.SaveChangesAsync();
+            _repository.Room.Delete(roomObj);
+            _repository.Save();
             TempData["success"] = "Room deleted successfully.";
             return RedirectToAction("Index");
         }
