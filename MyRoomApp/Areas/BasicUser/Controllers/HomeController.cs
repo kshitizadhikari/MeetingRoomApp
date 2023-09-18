@@ -16,23 +16,23 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
     public class HomeController : Controller
     {
         private readonly AppDbContext _db;
-        private readonly IRepositoryWrapper _repository
-            ;
+        private readonly IRepositoryWrapper _repository;
+        private readonly IEmailSender _emailSender;
 
-        public HomeController(AppDbContext db, IRepositoryWrapper repository)
+        public HomeController(AppDbContext db, IRepositoryWrapper repository, IEmailSender emailSender)
         {
             _db = db;
             _repository = repository;
+            _emailSender = emailSender;
         }
 
         public async Task<IActionResult> Index()
         {
             var currentUser = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-            string UserId = currentUser?.ToString() ?? "DefaultUserId";
+            string? UserId = currentUser?.ToString() ?? "NoId";
             ViewBag.UserId = UserId;
             List<RoomBookingParticipantVM> vmList = new List<RoomBookingParticipantVM>();
-            List<Booking> allBookings = _db.Bookings.ToList();
-            List<Booking> allBOokings = await _repository.Booking.FindAll().ToListAsync();
+            List<Booking> allBookings = await _repository.Booking.FindAll().ToListAsync();
             foreach (Booking booking in allBookings)
             {
                 Room? room = await _repository.Room.FindById(booking.RoomId);
@@ -103,6 +103,19 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             {
                 TempData["error"] = "Room Booking Unsuccessful.";
             }
+
+            if (roomBook.StartTime < DateTime.Now)
+            {
+                TempData["error"] = "Starting Time cannot be before today's date.";
+                return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
+            }
+
+            if(roomBook.EndTime < roomBook.StartTime)
+            {
+                TempData["error"] = "Ending Time cannot be before starting time.";
+                return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
+            }
+
             bool isBookingNameUnique = _repository.Booking.FindByCondition(b => b.Name == roomBook.BookingName).FirstOrDefault() == null;
             if (!isBookingNameUnique)
             {
@@ -305,6 +318,11 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
 
             _repository.Participants.Create(participant);
             await _repository.Save();
+
+            var receiver = user.Email.ToString();
+            var subject = "Meeting Invitation";
+            var message = $"You have been invited to a meeting:\n Room:{obj.Room.Name}\n Start Time: {obj.StartTime}\n End Time: {obj.EndTime}";
+            await _emailSender.SendEmailAsync(receiver, subject, message);
             TempData["success"] = "Participant Added Successfully.";
             return RedirectToAction("EditBooking", new { id = obj.BookingId });
         }

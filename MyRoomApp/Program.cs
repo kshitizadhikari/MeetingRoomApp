@@ -10,10 +10,12 @@ var connectionString = builder.Configuration.GetConnectionString("AppDbContextCo
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IParticipantsRepository, ParticipantsRepository>();
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -22,6 +24,9 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredUniqueChars = 0;
     options.Password.RequireUppercase = false;
+    options.Lockout.MaxFailedAccessAttempts = 1;
+    options.Lockout.MaxFailedAccessAttempts = 1;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
 });
 
 var app = builder.Build();
