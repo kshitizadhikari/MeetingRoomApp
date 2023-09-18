@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoomApp.DataAccess.DAL;
+using RoomApp.DataAccess.Infrastructure.Interfaces;
 using RoomApp.Models;
 using RoomApp.Models.Enum;
 using RoomApp.Utility.ViewModels;
@@ -15,10 +16,13 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
     public class HomeController : Controller
     {
         private readonly AppDbContext _db;
+        private readonly IRepositoryWrapper _repository
+            ;
 
-        public HomeController(AppDbContext db)
+        public HomeController(AppDbContext db, IRepositoryWrapper repository)
         {
             _db = db;
+            _repository = repository;
         }
 
         public async Task<IActionResult> Index()
@@ -28,15 +32,16 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             ViewBag.UserId = UserId;
             List<RoomBookingParticipantVM> vmList = new List<RoomBookingParticipantVM>();
             List<Booking> allBookings = _db.Bookings.ToList();
+            List<Booking> allBOokings = await _repository.Booking.FindAll().ToListAsync();
             foreach (Booking booking in allBookings)
             {
-                Room? room = await _db.Rooms.FindAsync(booking.RoomId);
+                Room? room = await _repository.Room.FindById(booking.RoomId);
                 var bookUser = await _db.Users.FindAsync(booking.UserId);
-                string? bookUserId = bookUser.Id;
-                List<Participant> particpantList = await _db.Participants.ToListAsync();
+                string bookUserId = bookUser.Id;
+                List<Participant> participantList = await _repository.Participants.FindAll().ToListAsync();
                 List<Participant> bookParticipantList = new List<Participant>();
 
-                foreach (var par in particpantList)
+                foreach (var par in participantList)
                 {
                     if (par.UserId == UserId && par.BookingId == booking.Id)
                     {
@@ -60,7 +65,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
 
         public async Task<IActionResult> ViewRooms()
         {
-            IEnumerable<Room> allRooms = await _db.Rooms.ToListAsync();
+            IEnumerable<Room> allRooms = await _repository.Room.FindAll().ToListAsync();
             return View(allRooms);
         }
 
@@ -72,7 +77,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("Index");
             }
 
-            Room? roomObj = await _db.Rooms.FindAsync(id);
+            Room? roomObj = await _repository.Room.FindById(id);
             if (roomObj == null)
             {
                 TempData["error"] = "Room Not Found.";
@@ -92,15 +97,14 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BookRoom(RoomBookingParticipantVM? roomBook)
+        public async Task<IActionResult> BookRoom(RoomBookingParticipantVM roomBook)
         {
             if (roomBook == null)
             {
                 TempData["error"] = "Room Booking Unsuccessful.";
             }
-
-            bool isBookingNameUnique = await _db.Bookings.AllAsync(b => b.Name != roomBook.BookingName);
-            if(!isBookingNameUnique)
+            bool isBookingNameUnique = _repository.Booking.FindByCondition(b => b.Name == roomBook.BookingName).FirstOrDefault() == null;
+            if (!isBookingNameUnique)
             {
                 TempData["error"] = "Duplicate Booking Name. Choose a different Name.";
                 return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
@@ -110,7 +114,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             string currentUserIdString = currentUserId?.ToString() ?? "DefaultUserId";
             ApplicationUser? userObj = await _db.Users.FindAsync(currentUserIdString);
 
-            List<Booking> allBookings = _db.Bookings.ToList();
+            List<Booking> allBookings = await _repository.Booking.FindAll().ToListAsync();
             foreach (var booking in allBookings)
             {
                 if (roomBook.StartTime >= booking.StartTime && roomBook.StartTime < booking.EndTime)
@@ -135,9 +139,8 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 User = userObj
             };
 
-            _db.Bookings.Add(bookingObj);
-            await _db.SaveChangesAsync();
-            int abc = bookingObj.Id;
+            _repository.Booking.Create(bookingObj);
+            await _repository.Save();
             TempData["success"] = "Room Booked Successfully";
 
             return RedirectToAction("Index");
@@ -151,19 +154,19 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("Index");
             }
 
-            Booking? bookObj = await _db.Bookings.FindAsync(id);
+            Booking? bookObj = await _repository.Booking.FindById(id);
             if (bookObj == null)
             {
                 TempData["error"] = "No such booking object found in the database.";
                 return RedirectToAction("Index");
             }
-            Room? roomObj = await _db.Rooms.FindAsync(bookObj.RoomId);
+            Room? roomObj = await _repository.Room.FindById(bookObj.RoomId);
             if (roomObj == null)
             {
                 TempData["error"] = "No such Room object found in the database.";
                 return RedirectToAction("Index");
             }
-            List<Participant>? allParticipants = await _db.Participants.ToListAsync();
+            List<Participant>? allParticipants = await _repository.Participants.FindAll().ToListAsync();
             List<Participant> bookingParticipantList = new List<Participant>();
             foreach (var item in allParticipants)
             {
@@ -203,7 +206,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 TempData["error"] = "User Not Found";
                 return RedirectToAction("Index");
             }
-            Booking? bookingObj = await _db.Bookings.FindAsync(roomBook.BookingId);
+            Booking? bookingObj = await _repository.Booking.FindById(roomBook.BookingId);
 
             if (bookingObj == null)
             {
@@ -218,8 +221,8 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             bookingObj.UserId = currentUserId;
             bookingObj.User = userObj;
 
-            _db.Bookings.Update(bookingObj);
-            await _db.SaveChangesAsync();
+            _repository.Booking.Update(bookingObj);
+            await _repository.Save();
             TempData["success"] = "Updated Booking Successfully.";
             return RedirectToAction("Index");
         }
@@ -232,18 +235,17 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("Index");
             }
 
-            Booking? bookObj = await _db.Bookings.FindAsync(id);
+            Booking? bookObj = await _repository.Booking.FindById(id);
             if (bookObj == null)
             {
                 TempData["error"] = "Booking Not Found.";
                 return RedirectToAction("Index");
             }
 
-            List<Participant> participantsInBooking = _db.Participants.Where(p => p.BookingId == bookObj.Id).ToList();
-            _db.Participants.RemoveRange(participantsInBooking);
-
-            _db.Bookings.Remove(bookObj);
-            await _db.SaveChangesAsync();
+            List<Participant> participantsInBooking = await _repository.Participants.FindByCondition(p => p.BookingId == bookObj.Id).ToListAsync();
+            _repository.Participants.RemoveMultiple(participantsInBooking);
+            _repository.Booking.Delete(bookObj);
+            await _repository.Save();
             TempData["success"] = "Booking Removed Successfully.";
             return RedirectToAction("Index");
         }
@@ -285,7 +287,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             }
 
             int? roomSize = obj.Room.Size;
-            int currentBookingParticipantCount = _db.Participants.Where(p => p.BookingId == obj.BookingId).Count();
+            int currentBookingParticipantCount = _repository.Participants.FindByCondition(p => p.BookingId == obj.BookingId).Count();
 
             if (currentBookingParticipantCount == (roomSize - 1))
             {
@@ -301,24 +303,23 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 Status = ParticipantStatus.Pending
             };
 
-
-            _db.Participants.Add(participant);
-            await _db.SaveChangesAsync();
+            _repository.Participants.Create(participant);
+            await _repository.Save();
             TempData["success"] = "Participant Added Successfully.";
             return RedirectToAction("EditBooking", new { id = obj.BookingId });
         }
 
         public async Task<IActionResult> RemoveParticipant(int? id)
         {
-            Participant? obj = await _db.Participants.FindAsync(id);
+            Participant? obj = await _repository.Participants.FindById(id);
             if (obj == null)
             {
                 TempData["error"] = "Participant Object Null";
                 return RedirectToAction("Index");
             }
-            _db.Participants.Remove(obj);
-            await _db.SaveChangesAsync();
-            TempData["success"] = "Participant object removed successfully.";
+            _repository.Participants.Delete(obj);
+            await _repository.Save();
+            TempData["success"] = "Participant Removed Successfully.";
             return RedirectToAction("EditBooking", new { id = obj.BookingId });
         }
 
@@ -335,19 +336,19 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("Index");
             }
 
-            Booking? bookObj = await _db.Bookings.FindAsync(id);
+            Booking? bookObj = await _repository.Booking.FindById(id);
             if (bookObj == null)
             {
-                TempData["error"] = "Booking object not found.";
+                TempData["error"] = "Booking Not Found.";
                 return RedirectToAction("EditBooking", new { id = id });
             }
-            Room? roomObj = await _db.Rooms.FindAsync(bookObj.RoomId);
+            Room? roomObj = await _repository.Room.FindById(bookObj.RoomId);
             if (roomObj == null)
             {
-                TempData["error"] = "Room object not found.";
+                TempData["error"] = "Room Not Found.";
                 return RedirectToAction("EditBooking", new { id = id });
             }
-            List<Participant>? allParticipants = await _db.Participants.ToListAsync();
+            List<Participant>? allParticipants = await _repository.Participants.FindAll().ToListAsync();
             List<Participant> bookingParticipantList = new List<Participant>();
             foreach (var item in allParticipants)
             {
@@ -372,13 +373,13 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
 
         public async Task<IActionResult> UpdateMeetingStatus(RoomBookingParticipantVM obj)
         {
-            Participant? participant = _db.Participants.FirstOrDefault(x => x.UserId == obj.UserId && x.BookingId == obj.BookingId);
+            Participant? participant = await _repository.Participants.FindByCondition(x => x.UserId == obj.UserId && x.BookingId == obj.BookingId).FirstOrDefaultAsync(); ;
             string? userStatus = obj.UserStatus.ToString();
-            ParticipantStatus enumValue = (ParticipantStatus)ParticipantStatus.Parse(typeof(ParticipantStatus), userStatus);
+            ParticipantStatus enumValue = (ParticipantStatus)Enum.Parse(typeof(ParticipantStatus), userStatus);
             participant.Status = enumValue;
-            _db.Participants.Update(participant);
-            await _db.SaveChangesAsync();
-            TempData["sucess"] = "Participant status updated successfully.";
+            _repository.Participants.Update(participant);
+            await _repository.Save();
+            TempData["sucess"] = "Participant Status Updated Successfully.";
             return RedirectToAction("Index");
         }
 

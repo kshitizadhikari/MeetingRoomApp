@@ -115,7 +115,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             _repository.Room.Delete(roomObj);
-            _repository.Save();
+            await _repository.Save();
             TempData["success"] = "Room deleted successfully.";
             return RedirectToAction("Index");
         }
