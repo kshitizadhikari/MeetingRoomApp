@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoomApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -15,6 +16,8 @@ namespace RoomApp.DataAccess.Infrastructure.Interfaces
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);
+        void RemoveMultiple(List<T> entitiesToRemove);
+
 
     }
 }

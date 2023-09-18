@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomApp.DataAccess.DAL;
 using RoomApp.DataAccess.Infrastructure.Interfaces;
+using RoomApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,6 @@ namespace RoomApp.DataAccess.Infrastructure.Repositories
         public void Create(T entity) => _db.Set<T>().Add(entity);
         public void Update(T entity) => _db.Set<T>().Update(entity);
         public void Delete(T entity) => _db.Set<T>().Remove(entity);
-
+        public void RemoveMultiple(List<T> entitesListToRemove) => _db.Set<T>().RemoveRange(entitesListToRemove);
     }
 }
