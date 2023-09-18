@@ -24,6 +24,9 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredUniqueChars = 0;
     options.Password.RequireUppercase = false;
+    options.Lockout.MaxFailedAccessAttempts = 1;
+    options.Lockout.MaxFailedAccessAttempts = 1;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
 });
 
 var app = builder.Build();
