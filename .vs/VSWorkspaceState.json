@@ -6,6 +6,6 @@
     "\\MyRoomApp\\Areas\\Admin",
     "\\MyRoomApp\\Areas\\Admin\\Controllers"
   ],
-  "SelectedNode": "\\MyRoomApp\\MyRoomApp.sln",
+  "SelectedNode": "\\MyRoomApp\\Areas\\Admin\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }
