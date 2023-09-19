@@ -4,8 +4,12 @@
     "\\MyRoomApp",
     "\\MyRoomApp\\Areas",
     "\\MyRoomApp\\Areas\\Admin",
-    "\\MyRoomApp\\Areas\\Admin\\Controllers"
+    "\\MyRoomApp\\Areas\\Admin\\Controllers",
+    "\\MyRoomApp\\Areas\\BasicUser",
+    "\\MyRoomApp\\Areas\\BasicUser\\Controllers",
+    "\\MyRoomApp\\Areas\\SuperAdmin",
+    "\\MyRoomApp\\Areas\\SuperAdmin\\Controllers"
   ],
-  "SelectedNode": "\\MyRoomApp\\Areas\\Admin\\Controllers\\HomeController.cs",
+  "SelectedNode": "\\MyRoomApp\\Areas\\SuperAdmin\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }

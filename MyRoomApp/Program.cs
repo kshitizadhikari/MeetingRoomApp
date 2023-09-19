@@ -7,7 +7,7 @@ using RoomApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AppDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AppDbContextConnection' not found.");
-
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
@@ -24,8 +24,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredUniqueChars = 0;
     options.Password.RequireUppercase = false;
-    options.Lockout.MaxFailedAccessAttempts = 1;
-    options.Lockout.MaxFailedAccessAttempts = 1;
+    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.MaxFailedAccessAttempts = 3;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
 });
 

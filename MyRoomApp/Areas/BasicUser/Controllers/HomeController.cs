@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoomApp.DataAccess.DAL;
@@ -15,13 +16,13 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
     [Route("BasicUser/[controller]/[action]")]
     public class HomeController : Controller
     {
-        private readonly AppDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IRepositoryWrapper _repository;
         private readonly IEmailSender _emailSender;
 
-        public HomeController(AppDbContext db, IRepositoryWrapper repository, IEmailSender emailSender)
+        public HomeController(UserManager<ApplicationUser> userManager, IRepositoryWrapper repository, IEmailSender emailSender)
         {
-            _db = db;
+            _userManager = userManager;
             _repository = repository;
             _emailSender = emailSender;
         }
@@ -36,7 +37,8 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
             foreach (Booking booking in allBookings)
             {
                 Room? room = await _repository.Room.FindById(booking.RoomId);
-                var bookUser = await _db.Users.FindAsync(booking.UserId);
+                var bookUser = await _userManager.FindByIdAsync(booking.UserId);
+
                 string bookUserId = bookUser.Id;
                 List<Participant> participantList = await _repository.Participants.FindAll().ToListAsync();
                 List<Participant> bookParticipantList = new List<Participant>();
@@ -110,7 +112,7 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
             }
 
-            if(roomBook.EndTime < roomBook.StartTime)
+            if (roomBook.EndTime < roomBook.StartTime)
             {
                 TempData["error"] = "Ending Time cannot be before starting time.";
                 return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
@@ -125,7 +127,8 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
 
             var currentUserId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             string currentUserIdString = currentUserId?.ToString() ?? "DefaultUserId";
-            ApplicationUser? userObj = await _db.Users.FindAsync(currentUserIdString);
+            //ApplicationUser? userObj = await _db.Users.FindAsync(currentUserIdString);
+            ApplicationUser? userObj = await _userManager.FindByIdAsync(currentUserIdString);
 
             List<Booking> allBookings = await _repository.Booking.FindAll().ToListAsync();
             foreach (var booking in allBookings)
@@ -152,9 +155,12 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 User = userObj
             };
 
-            _repository.Booking.Create(bookingObj);
-            await _repository.Save();
-            TempData["success"] = "Room Booked Successfully";
+            if (ModelState.IsValid)
+            {
+                _repository.Booking.Create(bookingObj);
+                await _repository.Save();
+                TempData["success"] = "Room Booked Successfully";
+            }
 
             return RedirectToAction("Index");
         }
@@ -212,7 +218,8 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
 
             var currentUser = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             string currentUserId = currentUser?.ToString() ?? "DefaultUserId";
-            ApplicationUser? userObj = await _db.Users.FindAsync(currentUserId);
+            //ApplicationUser? userObj = await _db.Users.FindAsync(currentUserId);
+            ApplicationUser? userObj = await _userManager.FindByIdAsync(currentUserId);
 
             if (userObj == null)
             {
@@ -271,11 +278,17 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("Index");
             }
 
-            var usersNotInParticipants = _db.Users
-                .Where(u => !_db.Participants.Any(p => p.UserId == u.Id && p.BookingId == roomBookObj.BookingId))
-                .ToList();
+            //var usersNotInParticipants = _db.Users
+            //    .Where(u => !_db.Participants.Any(p => p.UserId == u.Id && p.BookingId == roomBookObj.BookingId))
+            //    .ToList();
 
 
+            var participantUserIds = _repository.Participants
+            .FindByCondition(p => p.BookingId == roomBookObj.BookingId)
+            .Select(p => p.UserId)
+            .ToList();
+
+            var usersNotInParticipants = _userManager.Users.Where(u => !participantUserIds.Contains(u.Id)).ToList();
             ViewBag.Participant = usersNotInParticipants;
 
             roomBookObj.UserStatus = ParticipantStatus.Pending;
@@ -292,7 +305,8 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
                 return RedirectToAction("Index");
             }
 
-            var user = await _db.Users.FindAsync(obj.UserId);
+            //var user = await _db.Users.FindAsync(obj.UserId);
+            var user = await _userManager.FindByIdAsync(obj.UserId);
             if (user == null)
             {
                 TempData["error"] = "User Not Found.";

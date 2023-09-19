@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoomApp.DataAccess.DAL;
+using RoomApp.DataAccess.Infrastructure.Interfaces;
 using RoomApp.Models;
 using RoomApp.Utility.ViewModels;
 
@@ -20,13 +21,13 @@ namespace MyRoomApp.Areas.SuperAdmin.Controllers
         public HomeController(AppDbContext db, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _db = db;
-            this._userManager = userManager;
+            _userManager = userManager;
             this._roleManager = roleManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<ApplicationUser> users = _db.Users.ToList();
+            IEnumerable<ApplicationUser> users = await _userManager.Users.ToListAsync();
             List<UserRoleVM> userWithRoles = new List<UserRoleVM>();
 
             foreach (var user in users)
@@ -54,7 +55,8 @@ namespace MyRoomApp.Areas.SuperAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var user = await _db.Users.FindAsync(id);
+            //var user = await _db.Users.FindAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 TempData["error"] = "User doesn't exist.";
@@ -62,6 +64,7 @@ namespace MyRoomApp.Areas.SuperAdmin.Controllers
             }
 
             ViewBag.Roles = await _db.Roles.ToListAsync();
+            //ViewBag.Roles = await 
             var role = await _userManager.GetRolesAsync(user);
             string roleString = string.Join(", ", role);
 

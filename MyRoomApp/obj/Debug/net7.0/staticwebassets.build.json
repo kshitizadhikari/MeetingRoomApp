@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TjElj4J64mN9dBoUDG0wR/4U66FFbVoOQWnO3HQNKIA=",
+  "Hash": "Y7/6P03d/AMLQewTH2htv+aG58h+tSNDdadIIuBotN8=",
   "Source": "MyRoomApp",
   "BasePath": "_content/MyRoomApp",
   "Mode": "Default",
@@ -1071,12 +1071,12 @@
       "OriginalItemSpec": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\MyRoomApp.bundle.scp.css"
     },
     {
-      "Identity": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\wwwroot\\css\\bootswatchThemeSketchy.css",
+      "Identity": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\wwwroot\\css\\bootswatchThemeCyborg.css",
       "SourceId": "MyRoomApp",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\wwwroot\\",
       "BasePath": "_content/MyRoomApp",
-      "RelativePath": "css/bootswatchThemeSketchy.css",
+      "RelativePath": "css/bootswatchThemeCyborg.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1085,7 +1085,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\bootswatchThemeSketchy.css"
+      "OriginalItemSpec": "wwwroot\\css\\bootswatchThemeCyborg.css"
     },
     {
       "Identity": "D:\\DotNet\\MeetingRoomApp\\MyRoomApp\\wwwroot\\css\\site.css",
