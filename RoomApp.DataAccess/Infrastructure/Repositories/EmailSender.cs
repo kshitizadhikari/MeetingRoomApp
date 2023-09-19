@@ -25,7 +25,6 @@ namespace RoomApp.DataAccess.Infrastructure.Repositories
             var smtpPort = 587;
             var mail = "adhikarikshitiz12@gmail.com";
             var pw = _configuration["AppPassword"];
-            //var pw = "jdewuofyrqvkcllx";
 
             using (var client = new SmtpClient(smtpServer, smtpPort))
             {

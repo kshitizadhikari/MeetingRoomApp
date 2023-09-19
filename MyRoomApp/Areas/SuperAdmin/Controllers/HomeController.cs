@@ -14,13 +14,13 @@ namespace MyRoomApp.Areas.SuperAdmin.Controllers
     [Route("SuperAdmin/[controller]/[action]")]
     public class HomeController : Controller
     {
-        private readonly AppDbContext _db;
+        private readonly IRepositoryWrapper _repository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(AppDbContext db, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public HomeController(IRepositoryWrapper repository, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _db = db;
+            _repository = repository;
             _userManager = userManager;
             this._roleManager = roleManager;
         }
@@ -63,8 +63,8 @@ namespace MyRoomApp.Areas.SuperAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Roles = await _db.Roles.ToListAsync();
-            //ViewBag.Roles = await 
+            //ViewBag.Roles = await _db.Roles.ToListAsync();
+            ViewBag.Roles = await _roleManager.Roles.ToListAsync();
             var role = await _userManager.GetRolesAsync(user);
             string roleString = string.Join(", ", role);
 
@@ -89,7 +89,8 @@ namespace MyRoomApp.Areas.SuperAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var user = await _db.Users.FindAsync(obj.UserId);
+            var user = await _repository.AppUsers.FindById(obj.UserId);
+
             if (user == null)
             {
                 TempData["error"] = "No such user exists.";
@@ -127,15 +128,20 @@ namespace MyRoomApp.Areas.SuperAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var user = await _db.Users.FindAsync(id);
+            var user = await _repository.AppUsers.FindById(id);
             if (user == null)
             {
                 TempData["error"] = "User doesn't exist.";
                 return RedirectToAction("Index");
             }
-
-            _db.Users.Remove(user);
-            await _db.SaveChangesAsync();
+            bool userBookingExists = _repository.Booking.FindByCondition(b => b.UserId == id).Any();
+            if(userBookingExists == true)
+            {
+                TempData["error"] = "User Has Bookings";
+                return RedirectToAction("Index");
+            }
+            _repository.AppUsers.Delete(user);
+            await _repository.Save();
             return RedirectToAction("Index");
         }
     }
