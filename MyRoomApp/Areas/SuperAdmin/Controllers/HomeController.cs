@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RoomApp.DataAccess.DAL;
 using RoomApp.DataAccess.Infrastructure.Interfaces;
 using RoomApp.Models;
 using RoomApp.Utility.ViewModels;

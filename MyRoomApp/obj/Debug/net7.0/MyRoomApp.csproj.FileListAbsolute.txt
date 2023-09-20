@@ -1067,3 +1067,10 @@ D:\DotNet\MeetingRoomApp\MyRoomApp\obj\Debug\net7.0\refint\MyRoomApp.dll
 D:\DotNet\MeetingRoomApp\MyRoomApp\obj\Debug\net7.0\MyRoomApp.pdb
 D:\DotNet\MeetingRoomApp\MyRoomApp\obj\Debug\net7.0\MyRoomApp.genruntimeconfig.cache
 D:\DotNet\MeetingRoomApp\MyRoomApp\obj\Debug\net7.0\ref\MyRoomApp.dll
+D:\DotNet\MeetingRoomApp\MyRoomApp\bin\Debug\net7.0\System.Web.Mvc.dll
+D:\DotNet\MeetingRoomApp\MyRoomApp\bin\Debug\net7.0\System.Web.Razor.dll
+D:\DotNet\MeetingRoomApp\MyRoomApp\bin\Debug\net7.0\System.Web.Helpers.dll
+D:\DotNet\MeetingRoomApp\MyRoomApp\bin\Debug\net7.0\System.Web.WebPages.Deployment.dll
+D:\DotNet\MeetingRoomApp\MyRoomApp\bin\Debug\net7.0\System.Web.WebPages.Razor.dll
+D:\DotNet\MeetingRoomApp\MyRoomApp\bin\Debug\net7.0\System.Web.WebPages.dll
+D:\DotNet\MeetingRoomApp\MyRoomApp\bin\Debug\net7.0\Microsoft.Web.Infrastructure.dll

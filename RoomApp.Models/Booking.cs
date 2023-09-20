@@ -35,5 +35,6 @@ namespace RoomApp.Models
         public DateTime? EndTime { get; set; }
 
         public ICollection<Participant>? Participants { get; set; }
+        public bool isDeleted { get; set; } = false;
     }
 }

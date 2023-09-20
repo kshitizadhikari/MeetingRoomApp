@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RoomApp.Models;
+using System.Reflection.Emit;
+
 namespace RoomApp.DataAccess.DAL;
 
 public class AppDbContext : IdentityDbContext<ApplicationUser>
@@ -38,7 +40,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
         builder.Entity<Booking>()
             .HasIndex(b => b.Name)
-            .IsUnique();
+        .IsUnique();
+
+        builder.Entity<Room>().HasQueryFilter(r => !r.isDeleted);
+        builder.Entity<Booking>().HasQueryFilter(r => !r.isDeleted);
+        builder.Entity<Participant>().HasQueryFilter(r => !r.isDeleted);
 
         base.OnModelCreating(builder);
         // Customize the ASP.NET Identity model and override the defaults if needed.

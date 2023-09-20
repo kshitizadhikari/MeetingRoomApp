@@ -22,5 +22,6 @@ namespace RoomApp.Models
         public string? Status { get; set; } //occupied or free to use
 
         public ICollection<Booking>? Bookings { get; set; }
+        public bool isDeleted { get; set; } = false;
     }
 }
