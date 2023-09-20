@@ -32,6 +32,9 @@ namespace RoomApp.DataAccess.Infrastructure.Repositories
         public IParticipantsRepository Participants => _participants;
 
         public IAppUserRepository AppUser => _appUser;
+
+        public IAppUserRepository AppUsers => _appUser;
+
         public async Task Save()
         {
             await _appDbContext.SaveChangesAsync();

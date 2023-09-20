@@ -22,6 +22,7 @@ namespace RoomApp.Models
         public string? LastName { get; set; }
 
         public ICollection<Booking>? Bookings { get; set; }
+        public bool isDeleted { get; set; } = false;
 
     }
 

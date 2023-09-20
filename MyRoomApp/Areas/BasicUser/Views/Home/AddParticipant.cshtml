@@ -22,7 +22,7 @@
         <input type="hidden" asp-for="@Model.EndTime" value="@Model.EndTime" />
         <div class="mb-3">
             <label asp-for="@Model.UserId"></label>
-            <select asp-for="@Model.UserId" asp-items="@(new SelectList(ViewBag.Participant, "Id", "FirstName"))">
+            <select asp-for="@Model.UserId" asp-items="@(new SelectList(ViewBag.Participant, "Id", "FirstName"))" required>
                 <option value="">Select a User</option>
             </select>
             <span asp-validation-for="@Model.UserId" class="text-danger"></span>

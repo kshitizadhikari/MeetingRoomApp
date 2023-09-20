@@ -13,7 +13,7 @@
     </div>
 }
 <div>
-    <h1>Basic User Index Page</h1>
+    <h1>Basic User Book Room Page</h1>
 </div>
 
 <div>
@@ -33,11 +33,11 @@
                 </li>
                 <li class="list-group-item">
                     Start Time:
-                    <input type="datetime-local" asp-for="@Model.StartTime" />
+                    <input type="datetime-local" asp-for="@Model.StartTime" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                 </li>
                 <li class="list-group-item">
                     End Time:
-                    <input type="datetime-local" asp-for="@Model.EndTime" />
+                    <input type="datetime-local" asp-for="@Model.EndTime" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                 </li>
             </ul>
             <div>

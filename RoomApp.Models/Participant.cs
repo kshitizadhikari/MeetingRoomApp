@@ -26,5 +26,6 @@ namespace RoomApp.Models
 
         [Required]
         public ParticipantStatus? Status { get; set; }
+        public bool isDeleted { get; set; } = false;
     }
 }

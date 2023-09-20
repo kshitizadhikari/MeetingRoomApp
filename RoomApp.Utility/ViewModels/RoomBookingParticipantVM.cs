@@ -12,18 +12,19 @@ namespace RoomApp.Utility.ViewModels
         public string? UserId { get; set; }
         public Room? Room { get; set; }
 
-        [Required]
         public int? BookingId { get; set; }
+
+        [Required]
         public string? BookingName { get; set; }
 
         [Required]
         public DateTime? StartTime { get; set; }
-
+        
         [Required]
         public DateTime? EndTime { get; set; }
-
         public List<Participant>? Participants { get; set; }
 
-        public ParticipantStatus? UserStatus { get; set; }
+        [Required(ErrorMessage = "UserStatus is required")]
+        public ParticipantStatus UserStatus { get; set; }
     }
 }
