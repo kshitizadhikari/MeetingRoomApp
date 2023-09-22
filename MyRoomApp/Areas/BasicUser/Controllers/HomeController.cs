@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MyRoomApp.Controllers;
 using RoomApp.DataAccess.DAL;
 using RoomApp.DataAccess.Infrastructure.Interfaces;
 using RoomApp.Models;
@@ -18,12 +19,15 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IRepositoryWrapper _repository;
+        private readonly RoomController _roomController;
         private readonly IEmailSender _emailSender;
+        protected KeyValuePair<string, string> result;
 
-        public HomeController(UserManager<ApplicationUser> userManager, IRepositoryWrapper repository, IEmailSender emailSender)
+        public HomeController(UserManager<ApplicationUser> userManager, IRepositoryWrapper repository, RoomController roomController, IEmailSender emailSender)
         {
             _userManager = userManager;
             _repository = repository;
+            _roomController = roomController;
             _emailSender = emailSender;
         }
 
@@ -101,65 +105,13 @@ namespace MyRoomApp.Areas.BasicUser.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BookRoom(RoomBookingParticipantVM roomBook)
         {
-            if (roomBook == null)
-            {
-                TempData["error"] = "Room Booking Unsuccessful.";
-            }
-
-            if (roomBook.StartTime < DateTime.Now)
-            {
-                TempData["error"] = "Starting Time cannot be before today's date.";
-                return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
-            }
-
-            if (roomBook.EndTime < roomBook.StartTime)
-            {
-                TempData["error"] = "Ending Time cannot be before starting time.";
-                return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
-            }
-
-            bool isBookingNameUnique = _repository.Booking.FindByCondition(b => b.Name == roomBook.BookingName).FirstOrDefault() == null;
-            if (!isBookingNameUnique)
-            {
-                TempData["error"] = "Duplicate Booking Name. Choose a different Name.";
-                return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
-            }
-
             var currentUserId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             string currentUserIdString = currentUserId?.ToString() ?? "DefaultUserId";
-            //ApplicationUser? userObj = await _db.Users.FindAsync(currentUserIdString);
-            ApplicationUser? userObj = await _userManager.FindByIdAsync(currentUserIdString);
-
-            List<Booking> allBookings = await _repository.Booking.FindAll().ToListAsync();
-            foreach (var booking in allBookings)
+            result = await _roomController.BookRoom(roomBook, currentUserIdString);
+            TempData[result.Key] = result.Value;
+            if(String.Equals(result.Key, "error"))
             {
-                if (roomBook.StartTime >= booking.StartTime && roomBook.StartTime < booking.EndTime)
-                {
-                    TempData["error"] = "Starting Time Conflict. Choose a different starting time.";
-                    return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
-                }
-                else if (roomBook.EndTime > booking.StartTime && roomBook.EndTime <= booking.EndTime)
-                {
-                    TempData["error"] = "End Time Conflict. Choose a different ending time.";
-                    return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
-                }
-            }
-
-            Booking? bookingObj = new Booking
-            {
-                Name = roomBook.BookingName,
-                RoomId = roomBook.Room?.Id ?? 0,
-                StartTime = roomBook.StartTime,
-                EndTime = roomBook.EndTime,
-                UserId = currentUserIdString,
-                User = userObj
-            };
-
-            if (ModelState.IsValid)
-            {
-                _repository.Booking.Create(bookingObj);
-                await _repository.Save();
-                TempData["success"] = "Room Booked Successfully";
+                return RedirectToAction("BookRoom", new { id = roomBook.Room.Id });
             }
 
             return RedirectToAction("Index");

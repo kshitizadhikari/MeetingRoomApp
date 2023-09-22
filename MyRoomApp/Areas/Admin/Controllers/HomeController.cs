@@ -67,7 +67,7 @@ namespace MyRoomApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditRoom(Room obj)
         {
-            result = await _roomController.EditRoom(obj);
+            result = await _roomController.EditRoomPost(obj);
             TempData[result.Key] = result.Value;
             return RedirectToAction("Index");
         }

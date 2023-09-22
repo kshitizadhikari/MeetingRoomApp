@@ -18,6 +18,7 @@ builder.Services.AddScoped<IParticipantsRepository, ParticipantsRepository>();
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<RoomController>();
+builder.Services.AddScoped<BookingController>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
