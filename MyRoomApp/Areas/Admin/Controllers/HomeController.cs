@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MyRoomApp.Controllers;
 using RoomApp.DataAccess.DAL;
 using RoomApp.DataAccess.Infrastructure.Interfaces;
 using RoomApp.Models;
@@ -13,10 +14,12 @@ namespace MyRoomApp.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         private readonly IRepositoryWrapper _repository;
+        private readonly RoomController _roomController;
 
-        public HomeController(IRepositoryWrapper repository)
+        public HomeController(IRepositoryWrapper repository, RoomController roomController)
         {
             _repository = repository;
+           _roomController = roomController;
         }
 
         public async Task<IActionResult> Index()
@@ -34,26 +37,13 @@ namespace MyRoomApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRoom(Room obj)
         {
-            if (!ModelState.IsValid)
-            {
-                TempData["error"] = "Model state invalid";
-            }
-            bool isRoomNameUnique = !await _repository.Room
-            .FindByCondition(r => r.Name == obj.Name)
-            .AnyAsync();
+            KeyValuePair<string, string> result = await _roomController.CreateRoom(obj);
 
+            TempData[result.Key] = result.Value;
 
-            if (!isRoomNameUnique)
-            {
-                TempData["error"] = "Duplicate Room Name. Choose a different Name.";
-                return RedirectToAction("CreateRoom");
-            }
-
-            _repository.Room.Create(obj);
-             await _repository.Save();
-            TempData["success"] = "Room created successfully.";
             return RedirectToAction("Index");
         }
+
 
         public async Task<IActionResult> EditRoom(int? id)
         {
