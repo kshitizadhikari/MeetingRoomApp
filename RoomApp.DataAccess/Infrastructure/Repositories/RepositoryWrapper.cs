@@ -1,4 +1,5 @@
-﻿using RoomApp.DataAccess.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using RoomApp.DataAccess.DAL;
 using RoomApp.DataAccess.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,15 @@ namespace RoomApp.DataAccess.Infrastructure.Repositories
 
         public async Task Save()
         {
+            foreach (var entry in _appDbContext.ChangeTracker.Entries())
+            {
+                var entity = entry.Entity;
+                if (entry.State == EntityState.Deleted)
+                {
+                    entry.State = EntityState.Modified;
+                    entity.GetType().GetProperty("isDeleted").SetValue(entity, true);
+                }
+            }
             await _appDbContext.SaveChangesAsync();
         }
     }
