@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MyRoomApp.Controllers;
 using RoomApp.DataAccess.DAL;
 using RoomApp.DataAccess.Infrastructure.Interfaces;
 using RoomApp.DataAccess.Infrastructure.Repositories;
@@ -16,6 +17,7 @@ builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IParticipantsRepository, ParticipantsRepository>();
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<RoomController>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

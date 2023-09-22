@@ -37,3 +37,6 @@ D:\DotNet\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\ref\RoomApp.Utility.dl
 D:\DotNet\MeetingRoomApp\RoomApp.Utility\bin\Debug\net7.0\RoomApp.Models.dll
 D:\DotNet\MeetingRoomApp\RoomApp.Utility\bin\Debug\net7.0\RoomApp.Models.pdb
 D:\DotNet\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\RoomApp.Utility.csproj.CopyComplete
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\bin\Debug\net7.0\RoomApp.Models.dll
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\bin\Debug\net7.0\RoomApp.Models.pdb
+D:\asp.net\MeetingRoomApp\RoomApp.Utility\obj\Debug\net7.0\RoomApp.Utility.csproj.CopyComplete
