@@ -3371,23 +3371,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kshitiz\\.nuget\\packages\\": {},
+    "C:\\Users\\TAF\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj",
+      "projectUniqueName": "D:\\DotNet\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj",
       "projectName": "RoomApp.Utility",
-      "projectPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj",
-      "packagesPath": "C:\\Users\\kshitiz\\.nuget\\packages\\",
-      "outputPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Utility\\obj\\",
+      "projectPath": "D:\\DotNet\\MeetingRoomApp\\RoomApp.Utility\\RoomApp.Utility.csproj",
+      "packagesPath": "C:\\Users\\TAF\\.nuget\\packages\\",
+      "outputPath": "D:\\DotNet\\MeetingRoomApp\\RoomApp.Utility\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kshitiz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\TAF\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3402,8 +3402,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {
-              "projectPath": "D:\\asp.net\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj"
+            "D:\\DotNet\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj": {
+              "projectPath": "D:\\DotNet\\MeetingRoomApp\\RoomApp.Models\\RoomApp.Models.csproj"
             }
           }
         }
@@ -3433,7 +3433,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }
